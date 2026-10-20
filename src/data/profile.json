@@ -1,0 +1,12 @@
+{
+  "carson": {
+    "name": "Carson Price",
+    "role": "ML Platform & AI Engineer",
+    "location": "Sioux Falls, SD · open to remote",
+    "intro": "I build the systems around machine-learning models: the training, evaluation, and developer tooling that get them out of notebooks and into production. On my own time, that means self-hosted AI tools that only ship once they pass their tests.",
+    "email": "contact@cdprice.dev",
+    "resume": "/resume.pdf",
+    "github": "https://github.com/cdprice02",
+    "linkedin": "https://www.linkedin.com/in/carson-d-price/"
+  }
+}
