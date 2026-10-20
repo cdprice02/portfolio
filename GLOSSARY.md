@@ -60,3 +60,9 @@ _Avoid_: Private resume, full resume
 The title, description, and image that link unfurlers and search results show
 for a page.
 _Avoid_: OG card, link preview, meta
+
+## Publishing
+
+**Preview**:
+A build of an unmerged branch at its own address, hidden from search engines.
+_Avoid_: Staging, preview deployment

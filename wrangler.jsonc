@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "portfolio",
+  "compatibility_date": "2026-10-20",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+  },
+  "routes": [{ "pattern": "cdprice.dev", "custom_domain": true }],
+  // Preview URLs are served from workers.dev, so it stays on.
+  "workers_dev": true,
+  "preview_urls": true,
+}
