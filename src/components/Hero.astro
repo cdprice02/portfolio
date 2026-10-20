@@ -36,11 +36,13 @@ const pill =
       )}
     </div>
   </div>
-  <p class="max-w-[62ch] text-[1.0625rem] leading-relaxed">{profile.intro}</p>
+  <p class="max-w-[62ch] text-[1.0625rem] leading-relaxed text-[#d4d4d4]">
+    {profile.intro}
+  </p>
   <nav aria-label="Profile links" class="flex flex-wrap gap-2.5">
     <a
       href={profile.resume}
-      class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-bg no-underline hover:opacity-90"
+      class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[#d4d4d4] no-underline hover:opacity-90"
     >
       <Icon name="lucide:file-text" aria-hidden="true" class="size-4" />
       Resume (PDF)
