@@ -23,3 +23,15 @@ jobs:
       - run: pnpm lint
       - run: pnpm check
       - run: pnpm build
+      - name: Check internal links
+        uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: --offline --no-progress --root-dir ${{ github.workspace }}/dist 'dist/**/*.html'
+          jobSummary: true
+      - run: pnpm lighthouse
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: lighthouse
+          path: .lighthouseci
+          if-no-files-found: ignore

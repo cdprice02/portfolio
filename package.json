@@ -16,7 +16,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro",
-    "brand": "node scripts/brand/render.mjs"
+    "brand": "node scripts/brand/render.mjs",
+    "lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.0",
@@ -35,6 +36,7 @@
     "@astrojs/check": "^0.9.10",
     "@astrojs/sitemap": "^3.7.4",
     "@eslint/js": "^10.0.1",
+    "@lhci/cli": "0.15.1",
     "eslint": "^10.13.0",
     "eslint-plugin-astro": "^3.2.1",
     "eslint-plugin-jsx-a11y-x": "^0.2.0",
@@ -44,6 +46,7 @@
     "prettier-plugin-astro": "^1.1.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.71.2"
+    "typescript-eslint": "^8.71.2",
+    "wrangler": "4.151.1"
   }
 }
