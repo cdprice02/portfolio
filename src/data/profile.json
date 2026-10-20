@@ -8,6 +8,7 @@
     "resume": "/resume.pdf",
     "github": "https://github.com/cdprice02",
     "linkedin": "https://www.linkedin.com/in/carson-d-price/",
-    "headshot": "../assets/headshot.jpg"
+    "headshot": "../assets/headshot.jpg",
+    "analyticsToken": "05bfee0347e04598937415f55e1fd2a9"
   }
 }

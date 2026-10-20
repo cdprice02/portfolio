@@ -10,4 +10,25 @@
   // Preview URLs are served from workers.dev, so it stays on.
   "workers_dev": true,
   "preview_urls": true,
+  // `wrangler preview` refuses to run without this block, even empty; Previews
+  // inherit the top-level assets and compatibility settings.
+  "previews": {},
+  "observability": {
+    "enabled": false,
+    "head_sampling_rate": 1,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true,
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+    },
+    "issue_detection": {
+      "enabled": true,
+    },
+  },
 }
