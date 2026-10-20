@@ -1,18 +1,32 @@
-# Carson Price's Portfolio Website
+# cdprice.dev
 
-This is a repo for housing my personal portfolio website built using Deno Fresh.
+Carson Price's personal site: a static [Astro](https://astro.build) build with
+Tailwind CSS and React islands, served from Cloudflare.
 
-## Running the Project
+## Develop
 
-### Run Locally
+Requires the Node version in `.node-version`. Corepack provides the pnpm
+version pinned in `package.json`.
 
-Make sure to install Deno:
-[https://deno.land/manual/getting_started/installation]
-
-Then start the project:
-
-```bash
-deno task start
+```sh
+corepack enable
+pnpm install
+pnpm dev
 ```
 
-This will watch the project directory and restart as necessary.
+| Command        | What it does                                   |
+| -------------- | ---------------------------------------------- |
+| `pnpm dev`     | Dev server at `localhost:4321`                 |
+| `pnpm build`   | Static site in `dist/`                         |
+| `pnpm preview` | Serve the built `dist/` locally                |
+| `pnpm check`   | Type-check with `astro check`                  |
+| `pnpm lint`    | ESLint, including accessibility rules          |
+| `pnpm format`  | Format with Prettier (`format:check` verifies) |
+
+CI runs `format:check`, `lint`, `check`, and `build` on every pull request.
+
+## Decisions
+
+- [`GLOSSARY.md`](GLOSSARY.md): the domain language used across the site and
+  its issues.
+- [`docs/adr/`](docs/adr/): architecture decision records.

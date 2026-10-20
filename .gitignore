@@ -1,11 +1,23 @@
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
+# build output
+dist/
+# generated types
+.astro/
 
-# Fresh build directory
-_fresh/
-# npm dependencies
+# dependencies
 node_modules/
+
+# logs
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.*
+
+# local Cloudflare state
+.wrangler/
+
+# agent worktrees
+.claude/
+
+# macOS
+.DS_Store
