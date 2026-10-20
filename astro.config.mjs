@@ -3,11 +3,12 @@ import { defineConfig, fontProviders } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   site: "https://cdprice.dev",
   output: "static",
-  integrations: [react(), icon()],
+  integrations: [react(), icon(), sitemap()],
   fonts: [
     {
       provider: fontProviders.fontsource(),
