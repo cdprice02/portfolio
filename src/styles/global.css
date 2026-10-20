@@ -1,1 +1,74 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-fira-code);
+}
+
+@layer base {
+  :root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --fg: #1b2130;
+    --muted: #5a6273;
+    --line: #dde2ea;
+    --accent: #3b497a;
+    --accent-soft: #e7eaf4;
+    color-scheme: light;
+  }
+
+  /* Without JS no data-theme is ever set, so the OS preference applies here. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --bg: #0e1218;
+      --surface: #151a23;
+      --fg: #e2e6ed;
+      --muted: #97a0b1;
+      --line: #252c39;
+      --accent: #a3b2e6;
+      --accent-soft: #1c2338;
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0e1218;
+    --surface: #151a23;
+    --fg: #e2e6ed;
+    --muted: #97a0b1;
+    --line: #252c39;
+    --accent: #a3b2e6;
+    --accent-soft: #1c2338;
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-bg font-sans text-fg;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility gutter {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}

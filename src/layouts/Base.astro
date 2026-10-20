@@ -1,0 +1,94 @@
+---
+import { Font } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import ThemeToggle from "../components/ThemeToggle";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <script is:inline>
+      {
+        let theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch {
+          // Blocked storage falls through to the OS preference.
+        }
+        if (theme !== "light" && theme !== "dark") {
+          theme = matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+        document.documentElement.dataset.theme = theme;
+      }
+    </script>
+    <Font
+      cssVariable="--font-inter"
+      preload={[{ weight: 400, subset: "latin" }]}
+    />
+    <Font cssVariable="--font-fira-code" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <header class="gutter">
+      <div class="mx-auto flex max-w-[720px] items-center justify-between py-5">
+        <a href="/" class="font-mono text-sm font-medium text-fg no-underline">
+          cdprice<span class="text-accent">.dev</span>
+        </a>
+        <ThemeToggle client:load />
+      </div>
+    </header>
+
+    <main id="top" class="gutter flex-1">
+      <div class="mx-auto max-w-[720px] pt-6 pb-16 sm:pt-12">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="gutter border-t border-line">
+      <div class="mx-auto flex max-w-[720px] flex-wrap items-center justify-between gap-x-4 gap-y-1 py-6 font-mono text-xs text-muted">
+        <span>© {year} Carson Price</span>
+        <span class="flex items-center gap-x-2">
+          <span>built with Astro</span>
+          <span aria-hidden="true">·</span>
+          <a
+            href="https://github.com/cdprice02/portfolio"
+            class="text-muted underline-offset-4 hover:text-accent hover:underline"
+          >
+            source
+          </a>
+        </span>
+      </div>
+    </footer>
+
+    <a
+      id="to-top"
+      href="#top"
+      hidden
+      aria-label="Back to top"
+      class="fixed right-[calc(16px+env(safe-area-inset-right,0px))] bottom-[calc(16px+env(safe-area-inset-bottom,0px))] grid size-11 place-items-center rounded-full border border-line bg-surface text-fg shadow-sm hover:border-accent hover:text-accent [&[hidden]]:hidden"
+    >
+      <Icon name="lucide:arrow-up" aria-hidden="true" class="size-[18px]" />
+    </a>
+    <script is:inline>
+      {
+        const link = document.getElementById("to-top");
+        const update = () => {
+          link.hidden = window.scrollY <= 240;
+        };
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+      }
+    </script>
+  </body>
+</html>

@@ -1,18 +1,7 @@
 ---
-import { Icon } from "astro-icon/components";
-import "../styles/global.css";
+import Base from "../layouts/Base.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Carson Price</title>
-  </head>
-  <body>
-    <main class="mx-auto flex min-h-screen max-w-2xl items-center gap-3 p-6">
-      <Icon name="lucide:construction" aria-hidden="true" class="size-6" />
-      <h1 class="text-2xl font-semibold">Carson Price</h1>
-    </main>
-  </body>
-</html>
+<Base title="Carson Price">
+  <h1 class="text-2xl font-semibold">Carson Price</h1>
+</Base>
