@@ -17,6 +17,9 @@
     "format:check": "prettier --check .",
     "astro": "astro",
     "brand": "node scripts/brand/render.mjs",
+    "serve": "wrangler dev --port 8788 --compatibility-date 2026-01-01",
+    "check:csp": "node scripts/check-csp.mjs",
+    "check:csp:runtime": "node scripts/check-csp-runtime.mjs",
     "lighthouse": "lhci autorun"
   },
   "dependencies": {

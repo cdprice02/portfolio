@@ -4,11 +4,36 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
 import sitemap from "@astrojs/sitemap";
+import { isProduction } from "./src/lib/build.ts";
+import cspHeaders from "./scripts/csp-headers.mjs";
 
 export default defineConfig({
   site: "https://cdprice.dev",
   output: "static",
-  integrations: [react(), icon(), sitemap()],
+  security: {
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "frame-ancestors 'none'",
+        // Only production renders the Web Analytics beacon.
+        ...(isProduction
+          ? /** @type {const} */ ([
+              "connect-src 'self' https://cloudflareinsights.com",
+            ])
+          : []),
+      ],
+      scriptDirective: {
+        resources: [
+          "'self'",
+          ...(isProduction ? ["https://static.cloudflareinsights.com"] : []),
+        ],
+      },
+    },
+  },
+  integrations: [react(), icon(), sitemap(), cspHeaders()],
   fonts: [
     {
       provider: fontProviders.fontsource(),
