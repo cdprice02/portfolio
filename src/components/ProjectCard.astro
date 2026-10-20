@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+import { repoLabel } from "../lib/projects";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { title, tagline, summary, repo, tags, status } =
+  Astro.props.project.data;
+---
+
+<article class="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5 hover:border-accent sm:p-6">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+    <h3 class="text-xl font-bold">
+      <a href={repo} class="text-fg no-underline hover:text-accent">
+        {title}
+      </a>
+    </h3>
+    <span class="inline-flex items-center gap-1.5 font-mono text-xs text-muted">
+      <span
+        class:list={[
+          "inline-block size-1.5 rounded-full",
+          status === "archived" ? "bg-muted" : "bg-accent",
+        ]}
+        aria-hidden="true"
+      ></span>
+      {status}
+    </span>
+  </div>
+  <p class="font-medium text-accent">{tagline}</p>
+  <p class="max-w-[62ch] leading-relaxed text-muted">{summary}</p>
+  <ul class="flex flex-wrap gap-2 font-mono text-xs" aria-label="Technologies">
+    {tags.map((tag) => (
+      <li class="rounded bg-accent-soft px-2 py-1 text-accent">{tag}</li>
+    ))}
+  </ul>
+  <a
+    href={repo}
+    class="inline-flex w-fit items-center gap-1.5 font-mono text-xs text-muted no-underline hover:text-accent"
+  >
+    <Icon name="simple-icons:github" aria-hidden="true" class="size-3.5" />
+    {repoLabel(repo)}
+  </a>
+</article>
