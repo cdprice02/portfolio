@@ -21,17 +21,19 @@ const projects = defineCollection({
 
 const profile = defineCollection({
   loader: file("src/data/profile.json"),
-  schema: z.object({
-    name: z.string(),
-    role: z.string(),
-    location: z.string().optional(),
-    intro: z.string(),
-    email: z.email(),
-    resume: z.string().startsWith("/"),
-    github: z.url(),
-    linkedin: z.url(),
-    analyticsToken: z.string().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      role: z.string(),
+      location: z.string().optional(),
+      intro: z.string(),
+      email: z.email(),
+      resume: z.string().startsWith("/"),
+      github: z.url(),
+      linkedin: z.url(),
+      analyticsToken: z.string().optional(),
+      headshot: image(),
+    }),
 });
 
 export const collections = { projects, profile };
