@@ -1,22 +1,40 @@
 ---
 import { Font } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import Head, { type Props as HeadProps } from "../components/Head.astro";
 import ThemeToggle from "../components/ThemeToggle";
+import { isProduction } from "../lib/build";
+import { getProfile } from "../lib/profile";
 import "../styles/global.css";
 
-interface Props {
-  title: string;
-}
+type Props = Partial<HeadProps>;
 
-const { title } = Astro.props;
+const profile = await getProfile();
+const {
+  title = `${profile.name} · ${profile.role}`,
+  description = "Carson Price builds the systems around machine-learning models: training, evaluation, and developer tooling. Featured projects: colony, turox, nix-atelier.",
+  path = "/",
+  image = {
+    src: "/og.png",
+    width: 1200,
+    height: 630,
+    alt: `${profile.name}, ${profile.role}, cdprice.dev`,
+  },
+} = Astro.props;
 const year = new Date().getFullYear();
+const beaconToken = isProduction ? profile.analyticsToken : undefined;
+if (isProduction && !beaconToken) {
+  console.warn(
+    "Production build without profile.analyticsToken: no analytics beacon.",
+  );
+}
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <Head title={title} description={description} path={path} image={image} />
     <script is:inline>
       {
         let theme = null;
@@ -90,5 +108,13 @@ const year = new Date().getFullYear();
         update();
       }
     </script>
+    {beaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: beaconToken })}
+      />
+    )}
   </body>
 </html>
