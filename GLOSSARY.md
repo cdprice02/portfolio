@@ -11,8 +11,8 @@ Carson and points to his featured Projects.
 _Avoid_: Home page, index, splash
 
 **Project page**:
-A page about one Project written for engineers who want to dig in; not part of
-v1.
+A page about one Project, for engineers who want to dig in; a Project has one
+only when its page has been written.
 _Avoid_: Detail page, case study
 
 ## Content
