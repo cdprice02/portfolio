@@ -52,7 +52,7 @@ _Avoid_: Update, release note, news
 
 **Profile**:
 The single record of who Carson is and how to reach him (name, role, location,
-photo, a photo of his dog, intro, contact and profile links), shared by every
+photo, intro, a photo of his dog, contact and profile links), shared by every
 page.
 _Avoid_: Bio, about, site config
 
