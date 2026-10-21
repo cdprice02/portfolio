@@ -10,11 +10,24 @@ const origin = `http://localhost:${port}`;
 const paths = ["/", "/404"];
 const themes = ["light", "dark"];
 
+// A leftover server would answer the readiness probe and hide a failed start.
+const occupied = await fetch(origin).then(
+  () => true,
+  () => false,
+);
+if (occupied) throw new Error(`${origin} is already in use`);
+
 const server = spawn(process.execPath, [process.env.npm_execpath, "serve"], {
   stdio: "ignore",
   detached: true,
 });
-const stop = () => process.kill(-server.pid);
+const stop = () => {
+  try {
+    process.kill(-server.pid);
+  } catch {
+    // The server already exited.
+  }
+};
 
 async function ready() {
   for (let attempt = 0; attempt < 60; attempt++) {
