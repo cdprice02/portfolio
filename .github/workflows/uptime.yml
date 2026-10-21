@@ -1,0 +1,107 @@
+name: Uptime
+
+# GitHub disables scheduled workflows after 60 days without repo activity;
+# Dependabot's weekly PRs count as activity, so no keepalive is needed.
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Site to check; override only to test the issue lifecycle
+        default: https://cdprice.dev
+
+permissions:
+  contents: read
+  issues: write
+
+# Overlapping runs would both see "no open issue" and open two.
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+jobs:
+  uptime:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ inputs.base_url || 'https://cdprice.dev' }}
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Check the site
+        id: check
+        run: |
+          failures="$RUNNER_TEMP/failures.md"
+          : > "$failures"
+
+          # Prints the failure reason and returns 1; silent on success.
+          probe() {
+            code=$(curl -sS --max-time 15 -o "$RUNNER_TEMP/body" \
+              -D "$RUNNER_TEMP/headers" -w '%{http_code}' "$1") ||
+              { echo "request failed or timed out"; return 1; }
+            [ "$code" = 200 ] || { echo "HTTP $code"; return 1; }
+            case $2 in
+              html)
+                grep -qi '<title>[^<]*Carson Price' "$RUNNER_TEMP/body" ||
+                  { echo "title does not contain \"Carson Price\""; return 1; }
+                ;;
+              pdf)
+                grep -qi '^content-type: *application/pdf' "$RUNNER_TEMP/headers" ||
+                  { echo "content-type is not application/pdf"; return 1; }
+                ;;
+            esac
+          }
+
+          check() {
+            attempt=1
+            until reason=$(probe "$1" "$2"); do
+              if [ "$attempt" -ge 3 ]; then
+                printf -- '- `%s`: %s\n' "$1" "$reason" >> "$failures"
+                return
+              fi
+              attempt=$((attempt + 1))
+              sleep 10
+            done
+          }
+
+          check "$BASE_URL/" html
+          check "$BASE_URL/resume.pdf" pdf
+
+          if [ -s "$failures" ]; then
+            echo "failed=true" >> "$GITHUB_OUTPUT"
+            cat "$failures"
+          else
+            echo "failed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Find the open outage issue
+        id: existing
+        run: |
+          number=$(gh issue list --label uptime --state open --json number --jq '.[0].number // empty')
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+
+      - name: Report the outage
+        if: steps.check.outputs.failed == 'true'
+        env:
+          EXISTING: ${{ steps.existing.outputs.number }}
+        run: |
+          run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          {
+            printf 'Checked at %s ([run](%s)):\n\n' "$(date -u +%Y-%m-%dT%H:%MZ)" "$run_url"
+            cat "$RUNNER_TEMP/failures.md"
+          } > "$RUNNER_TEMP/report.md"
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body-file "$RUNNER_TEMP/report.md"
+          else
+            gh label create uptime --description "cdprice.dev is not serving correctly" --color d93f0b --force
+            gh issue create --label uptime --title "Outage: cdprice.dev is not serving correctly" \
+              --body-file "$RUNNER_TEMP/report.md"
+          fi
+
+      - name: Close the recovered outage
+        if: steps.check.outputs.failed == 'false' && steps.existing.outputs.number != ''
+        env:
+          EXISTING: ${{ steps.existing.outputs.number }}
+        run: |
+          gh issue close "$EXISTING" --comment "Recovered at $(date -u +%Y-%m-%dT%H:%MZ)."

@@ -66,3 +66,8 @@ _Avoid_: OG card, link preview, meta
 **Preview**:
 A build of an unmerged branch at its own address, hidden from search engines.
 _Avoid_: Staging, preview deployment
+
+**Outage**:
+A period during which the Landing page or the Public resume is not served
+correctly at cdprice.dev, from the first failed check to the first passing one.
+_Avoid_: Downtime, incident
