@@ -1,0 +1,24 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "pnpm serve",
+      "startServerReadyPattern": "Ready on",
+      "url": ["http://localhost:8788/", "http://localhost:8788/404"],
+      "numberOfRuns": 1,
+      "settings": {
+        "skipAudits": ["robots-txt"],
+        "onlyCategories": ["accessibility"],
+        "chromeFlags": "--blink-settings=preferredColorScheme=0"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:accessibility": ["error", { "minScore": 1 }]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci/dark"
+    }
+  }
+}

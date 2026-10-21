@@ -5,7 +5,10 @@
       "startServerReadyPattern": "Ready on",
       "url": ["http://localhost:8788/", "http://localhost:8788/404"],
       "numberOfRuns": 3,
-      "settings": { "skipAudits": ["robots-txt"] }
+      "settings": {
+        "skipAudits": ["robots-txt"],
+        "chromeFlags": "--blink-settings=preferredColorScheme=1"
+      }
     },
     "assert": {
       "assertions": {
