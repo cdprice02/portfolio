@@ -15,6 +15,10 @@ A page about one Project, for engineers who want to dig in; a Project has one
 only when its page has been written.
 _Avoid_: Detail page, case study
 
+**Markdown twin**:
+The plain-markdown copy of a Project page, served beside it for agents.
+_Avoid_: md version, raw page
+
 ## Content
 
 **Project**:
@@ -34,7 +38,7 @@ _Avoid_: Stat, metric, highlight
 
 **Also line**:
 The single line on the Landing page that names lesser Projects without giving
-them a Project card.
+them a Project card; a named Project with a Project page links to it.
 _Avoid_: Honorable mentions, other projects
 
 **Post**:
@@ -42,7 +46,8 @@ A dated piece of long-form writing, optionally about one Project.
 _Avoid_: Article, blog entry, write-up
 
 **Changelog entry**:
-A short dated note recording a notable change to one Project.
+A short dated note recording a notable change to one Project that has a
+Project page.
 _Avoid_: Update, release note, news
 
 **Profile**:
