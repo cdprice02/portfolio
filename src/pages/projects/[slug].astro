@@ -1,0 +1,126 @@
+---
+import { render } from "astro:content";
+import { Icon } from "astro-icon/components";
+import MetaLine from "../../components/MetaLine.astro";
+import Base from "../../layouts/Base.astro";
+import { getPages, type ProjectPage } from "../../lib/projects";
+
+export async function getStaticPaths() {
+  const pages = await getPages();
+  return pages.map((page) => ({
+    params: { slug: page.project.id },
+    props: page,
+  }));
+}
+
+type Props = ProjectPage;
+
+const { project, updated, sections } = Astro.props;
+const {
+  title,
+  tagline,
+  summary,
+  repo,
+  links = [],
+  figures = [],
+  caveat,
+  status,
+} = project.data;
+const { Content } = await render(project);
+const sectionText = new Map(sections.map(({ slug, text }) => [slug, text]));
+const pills = [
+  ...links.map((link) => ({ ...link, icon: "lucide:external-link" })),
+  { label: "Source on GitHub", href: repo, icon: "simple-icons:github" },
+];
+---
+
+<Base
+  title={`${title} · Carson Price`}
+  description={summary}
+  path={`/projects/${project.id}/`}
+>
+  <a
+    href="/#projects"
+    class="mb-6 inline-flex font-mono text-sm text-muted no-underline hover:text-accent"
+  >
+    ← projects
+  </a>
+
+  <header class="flex flex-col gap-2.5">
+    <h1 class="w-fit text-4xl leading-[1.1] font-bold tracking-tight sm:text-5xl">
+      {title}
+    </h1>
+    <p class="text-lg font-medium text-accent">{tagline}</p>
+    <MetaLine status={status} updated={updated} />
+  </header>
+
+  <section class="mt-7 flex flex-col gap-6" aria-label="Overview">
+    <p class="max-w-[62ch] text-lg leading-[1.65]">{summary}</p>
+
+    {figures.length > 0 && (
+      <ul class="grid gap-3 min-[521px]:grid-cols-3" aria-label="Key figures">
+        {figures.map(({ value, label, section }) => (
+          <li>
+            <a
+              href={`#${section}`}
+              class="group flex h-full flex-col gap-0.5 rounded-xl border border-line bg-surface px-4 py-3.5 text-fg no-underline hover:border-accent"
+            >
+              <span class="font-mono text-[1.75rem] leading-[1.2] font-medium text-accent">
+                {value}
+              </span>
+              <span class="text-sm font-medium">{label}</span>
+              <span class="mt-1.5 font-mono text-[0.6875rem] text-muted group-hover:text-accent">
+                {sectionText.get(section)} →
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <div class="flex flex-col gap-2">
+      <nav aria-label="Project links" class="flex flex-wrap gap-2.5">
+        {pills.map(({ label, href, icon }, i) => (
+          <a
+            href={href}
+            class:list={[
+              "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm no-underline",
+              i === 0
+                ? "border-accent bg-accent font-semibold text-bg hover:opacity-90"
+                : "border-line bg-surface font-medium text-fg hover:border-accent hover:text-accent",
+            ]}
+          >
+            <Icon name={icon} aria-hidden="true" class="size-4 flex-none" />
+            {label}
+          </a>
+        ))}
+      </nav>
+      {caveat && <p class="text-[0.8125rem] text-muted">{caveat}</p>}
+    </div>
+
+    <nav
+      class="flex flex-col gap-2 border-l-2 border-line pl-4"
+      aria-labelledby="toc-label"
+    >
+      <p id="toc-label" class="font-mono text-sm font-medium text-muted">
+        on this page
+      </p>
+      <ol class="flex flex-col gap-1 font-mono text-[0.8125rem]">
+        {sections.map(({ slug, text }) => (
+          <li>
+            <a
+              href={`#${slug}`}
+              class="text-muted no-underline before:whitespace-pre before:text-line before:content-['#__'] hover:text-accent"
+            >
+              {text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </section>
+
+  <article class="prose mt-12">
+    <Content />
+  </article>
+</Base>

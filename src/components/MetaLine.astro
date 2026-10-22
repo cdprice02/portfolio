@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { isoDate } from "../lib/projects";
+import Status from "./Status.astro";
+
+interface Props {
+  status: CollectionEntry<"projects">["data"]["status"];
+  updated: Date;
+  /** Filled by live Project data; the segment is left out until then. */
+  lastCommit?: Date;
+}
+
+const { status, updated, lastCommit } = Astro.props;
+---
+
+<p class="flex flex-wrap items-center gap-x-2.5 gap-y-1 pt-1.5 font-mono text-xs text-muted">
+  <Status status={status} />
+  <span class="text-line" aria-hidden="true">
+    ·
+  </span>
+  <span>
+    updated <time datetime={isoDate(updated)}>{isoDate(updated)}</time>
+  </span>
+  {lastCommit && (
+    <>
+      <span class="text-line" aria-hidden="true">
+        ·
+      </span>
+      <span>
+        last commit{" "}
+        <time datetime={isoDate(lastCommit)}>{isoDate(lastCommit)}</time>
+      </span>
+    </>
+  )}
+</p>

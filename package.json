@@ -23,6 +23,7 @@
     "lighthouse": "lhci autorun && lhci autorun --config=lighthouserc.dark.json"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.4",
     "@astrojs/react": "^7.1.0",
     "@iconify-json/lucide": "^1.2.146",
     "@iconify-json/simple-icons": "^1.2.100",

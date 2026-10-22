@@ -13,6 +13,18 @@ const projects = defineCollection({
       links: z.array(z.object({ label: z.string(), href: z.url() })).optional(),
       tags: z.array(z.string()),
       status: z.enum(["active", "maintained", "archived"]),
+      updated: z.coerce.date().optional(),
+      figures: z
+        .array(
+          z.object({
+            value: z.string(),
+            label: z.string(),
+            section: z.string(),
+          }),
+        )
+        .max(3)
+        .optional(),
+      caveat: z.string().optional(),
       image: image().optional(),
       featured: z.union([z.enum(["card", "also"]), z.literal(false)]),
       order: z.number(),

@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { repoLabel } from "../lib/projects";
+import Status from "./Status.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -18,16 +19,7 @@ const { title, tagline, summary, repo, tags, status } =
         {title}
       </a>
     </h3>
-    <span class="inline-flex items-center gap-1.5 font-mono text-xs text-muted">
-      <span
-        class:list={[
-          "inline-block size-1.5 rounded-full",
-          status === "archived" ? "bg-muted" : "bg-accent",
-        ]}
-        aria-hidden="true"
-      ></span>
-      {status}
-    </span>
+    <Status status={status} />
   </div>
   <p class="font-medium text-accent">{tagline}</p>
   <p class="max-w-[62ch] leading-relaxed text-muted">{summary}</p>
