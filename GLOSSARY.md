@@ -11,8 +11,8 @@ Carson and points to his featured Projects.
 _Avoid_: Home page, index, splash
 
 **Project page**:
-A page about one Project written for engineers who want to dig in; not part of
-v1.
+A page about one Project, for engineers who want to dig in; a Project has one
+only when its page has been written.
 _Avoid_: Detail page, case study
 
 ## Content
@@ -25,6 +25,12 @@ _Avoid_: Repo, item, work
 **Project card**:
 A Project's summary on the Landing page, written for a general reader.
 _Avoid_: Tile, preview
+
+**Key figure**:
+A headline value near the top of a Project page (usually a number, sometimes a
+word), true as of the page's last update, that links to the part of the page
+backing it.
+_Avoid_: Stat, metric, highlight
 
 **Also line**:
 The single line on the Landing page that names lesser Projects without giving
@@ -41,7 +47,8 @@ _Avoid_: Update, release note, news
 
 **Profile**:
 The single record of who Carson is and how to reach him (name, role, location,
-photo, intro, contact and profile links), shared by every page.
+photo, a photo of his dog, intro, contact and profile links), shared by every
+page.
 _Avoid_: Bio, about, site config
 
 **Public resume**:
