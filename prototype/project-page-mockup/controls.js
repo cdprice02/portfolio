@@ -3,12 +3,12 @@
 // in localStorage so a choice survives the navigation between the two pages.
 (() => {
   const root = document.documentElement;
-  const KEY = "mock62:";
+  const KEY = "mock62b:";
   const defaults = {
-    rocky: "1",
+    rocky: "3",
     intro: "b",
     meta: "line",
-    headings: "sans",
+    headings: "mono",
     recent: "end",
     driver: "scroll",
     range: "50",
@@ -125,35 +125,15 @@
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
   }
 
+  // Everything else is locked; reduced motion stays switchable for checking the fallback.
   const options = [
-    ["Landing page", [
-      ["rocky", "Rocky photo", [["1", "1: graduation"], ["2", "2: lawn"], ["3", "3: rug"], ["none", "none"]]],
-      ["intro", "Intro closer", [
-        ["a", "(a) Off the clock…"],
-        ["b", "(b) Away from the keyboard…"],
-        ["c", "(c) …, and the rest of the time…"],
-        ["d", "(d) Most evenings…"],
-      ]],
-    ]],
-    ["Project page", [
-      ["meta", "Header meta", [["line", "mono line"], ["list", "definition list"]]],
-      ["headings", "Section headings", [["sans", "Inter h2"], ["mono", "mono label"]]],
-      ["recent", "Recent changes", [["end", "at the end"], ["early", "after “why”"]]],
-    ]],
-    ["Motion", [
-      ["motion", "Motion", [["full", "full"], ["reduce", "reduced (instant)"]]],
-      ["driver", "Reveal driver", [["scroll", "scroll-linked (CSS only)"], ["time", "time-based (tiny JS)"]]],
-      ["distance", "Reveal rise", [["4", "4px"], ["8", "8px"], ["12", "12px"]]],
-      ["range", "Scroll-linked: done at", [["25", "25% into view"], ["50", "50% into view"], ["100", "fully in view"]]],
-      ["revealMs", "Time-based: duration", [["200", "200ms"], ["250", "250ms"], ["300", "300ms"]]],
-      ["vtMs", "Title transition", [["200", "200ms"], ["300", "300ms"], ["400", "400ms"]]],
-    ]],
+    ["Motion", [["motion", "Motion", [["full", "full"], ["reduce", "reduced (instant)"]]]]],
   ];
 
   function buildPanel() {
     const panel = document.createElement("details");
     panel.id = "mock";
-    panel.innerHTML = "<summary>Mockup controls (#62)</summary><div class='body'></div>";
+    panel.innerHTML = "<summary>Mockup controls (#62, round 2)</summary><div class='body'></div>";
     const body = panel.querySelector(".body");
     for (const [group, rows] of options) {
       const fs = document.createElement("fieldset");
@@ -177,7 +157,7 @@
     const note = document.createElement("p");
     note.className = "note";
     note.textContent =
-      "Title transition plays on navigation: click the turox card title, then “← projects”. Back-to-top: 200ms fade, 8px rise. The OS reduced-motion setting also disables all motion.";
+      "Title transition plays on navigation: click the turox card, then “← projects”. Back-to-top: 200ms fade, 8px rise. The OS reduced-motion setting also disables all motion.";
     body.append(note);
     try {
       panel.open = localStorage.getItem(KEY + "panel") === "open";

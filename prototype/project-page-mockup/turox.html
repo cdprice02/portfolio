@@ -30,35 +30,47 @@
       <header class="page-head">
         <h1 style="view-transition-name: title-turox">turox</h1>
         <p class="tagline">A chess engine, forged in Rust.</p>
-
         <p class="meta-line">
           <span class="status"><span class="dot" aria-hidden="true"></span>active</span>
           <span class="sep" aria-hidden="true">·</span>
           <span>updated <time datetime="2026-10-20">20 Oct 2026</time></span>
           <span class="sep" aria-hidden="true">·</span>
-          <span>last commit 3 days ago</span>
-          <span class="sep" aria-hidden="true">·</span>
-          <span>v0.4.0</span>
-          <span class="sep" aria-hidden="true">·</span>
-          <span>bullet 2019 · blitz 1954</span>
-          <span class="sep" aria-hidden="true">·</span>
-          <a href="https://github.com/cdprice02/turox">
-            <svg class="icon" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>cdprice02/turox</a>
-          <span class="sep" aria-hidden="true">·</span>
-          <a href="#" title="Markdown twin, not in this mockup">.md</a>
+          <span>last commit 3 days ago <span class="ph">live</span></span>
         </p>
-
-        <dl class="meta-dl">
-          <dt>status</dt><dd>active</dd>
-          <dt>updated</dt><dd><time datetime="2026-10-20">20 October 2026</time></dd>
-          <dt>last commit</dt><dd>3 days ago</dd>
-          <dt>release</dt><dd>v0.4.0</dd>
-          <dt>lichess</dt><dd>2019 bullet · 1954 blitz · 2082 rapid</dd>
-          <dt>source</dt><dd><a href="https://github.com/cdprice02/turox">cdprice02/turox</a> · <a href="#" title="Markdown twin, not in this mockup">markdown</a></dd>
-        </dl>
-
-        <p><span class="ph">placeholder: last commit, release, and ratings are live figures; prose is filler until Project page copy</span></p>
       </header>
+
+      <section class="lead-block" aria-label="Overview">
+        <p class="lead">
+          A bitboard chess engine built for measured performance work. Its move generation, checked
+          against perft, runs at about 52 million positions a second, and search runs at about 1.5
+          million nodes a second. A change to playing strength is kept only if an SPRT match shows it
+          helps. It plays as a bot on Lichess, rated about 2000 in bullet and blitz.
+        </p>
+        <ul class="figures">
+          <li><a href="#h-evidence"><span class="fig-value">~2000</span><span class="fig-label">Lichess rating</span><span class="fig-more">how it was measured →</span></a></li>
+          <li><a href="#h-evidence"><span class="fig-value">52M</span><span class="fig-label">positions / second</span><span class="fig-more">how it was measured →</span></a></li>
+          <li><a href="#h-decisions"><span class="fig-value">every</span><span class="fig-label">change SPRT-tested</span><span class="fig-more">why →</span></a></li>
+        </ul>
+        <div class="actions">
+          <nav aria-label="Project links" class="pills">
+            <a href="https://lichess.org/@/turox-bot" class="pill primary"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Challenge on Lichess</a>
+            <a href="https://github.com/cdprice02/turox" class="pill"><svg class="icon" style="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>Source on GitHub</a>
+          </nav>
+          <p class="muted caveat">turox-bot accepts challenges while its runner is up, most evenings. <span class="ph">wording: #65</span></p>
+        </div>
+        <nav class="toc" aria-labelledby="toc-label">
+          <p id="toc-label" class="label">on this page</p>
+          <ol>
+            <li><a href="#h-why">Why it exists</a></li>
+            <li><a href="#h-how">How it works</a></li>
+            <li><a href="#h-evidence">Evidence</a></li>
+            <li><a href="#h-decisions">Key decisions</a></li>
+            <li><a href="#h-status">Status and what's next</a></li>
+            <li><a href="#h-recent">Recent changes</a></li>
+          </ol>
+        </nav>
+        <p><span class="ph">placeholder: lead is the card summary; figures and prose are filler until Project page copy</span></p>
+      </section>
 
       <article class="prose">
         <section id="why" class="reveal" aria-labelledby="h-why">
@@ -74,11 +86,6 @@
             Lichess means it meets thousands of human and engine opponents it was never tuned
             against, which keeps the measured gains honest.
           </p>
-          <a class="challenge" href="https://lichess.org/@/turox-bot">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-            Challenge turox-bot on Lichess
-          </a>
-          <p class="muted" style="font-size:.875rem">It accepts challenges while its runner is up, which is most evenings. <span class="ph">wording: #65</span></p>
         </section>
 
         <section class="reveal" aria-labelledby="h-how">
@@ -258,7 +265,7 @@
         <section class="reveal" aria-labelledby="h-status">
           <h2 id="h-status">Status and what's next</h2>
           <p>
-            Active. The next work is search: better move ordering and pruning, each landed only
+            Active, at v0.4.0 <span class="ph">live</span>. The next work is search: better move ordering and pruning, each landed only
             behind a passing SPRT run. A browser build, so the engine can be played right here, is a
             later follow-up.
           </p>
