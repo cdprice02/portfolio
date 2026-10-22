@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { readdirSync } from "node:fs";
 import { chromium } from "playwright";
 
 // Loads each page in both themes against the Worker that serves the real
@@ -7,7 +8,12 @@ import { chromium } from "playwright";
 // Installed Chrome, as in Lighthouse CI, so CI needs no browser download.
 const port = 8788;
 const origin = `http://localhost:${port}`;
-const paths = ["/", "/404"];
+// Every built Project page, so a new page is covered without editing this list.
+const projectPaths = readdirSync("dist/projects").map(
+  (slug) => `/projects/${slug}/`,
+);
+const paths = ["/", "/404", ...projectPaths];
+const nodeFills = new Map();
 const themes = ["light", "dark"];
 
 // A leftover server would answer the readiness probe and hide a failed start.
@@ -103,6 +109,23 @@ try {
         .catch(() => {
           problems.push(`${label}: back-to-top script did not run`);
         });
+      if (projectPaths.includes(path)) {
+        // The renderer's own colours are stripped, so an unstyled node would
+        // fall back to the SVG default (black) and pass every other check.
+        const fill = await page
+          .locator(".diagram g.node rect")
+          .first()
+          .evaluate((rect) => getComputedStyle(rect).fill)
+          .catch(() => null);
+        if (fill === null || fill === "none" || fill === "rgb(0, 0, 0)") {
+          problems.push(`${label}: diagram node fill is ${fill}`);
+        }
+        const other = nodeFills.get(path);
+        if (other === undefined) nodeFills.set(path, fill);
+        else if (other === fill) {
+          problems.push(`${label}: diagram does not change with the theme`);
+        }
+      }
       const violations = await page.evaluate(() => window.__violations);
       for (const violation of violations) {
         problems.push(`${label}: CSP violation: ${violation}`);

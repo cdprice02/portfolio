@@ -53,23 +53,20 @@ models run in Ollama on a desktop with an RTX 3070. When that desktop is
 asleep, search and Scout fail fast with a useful message and can publish a
 wake request for the home automation to answer.
 
-```d2
-client: AI assistant
-pi: Raspberry Pi 4 (k3s) {
-  oauth: OAuth 2.1
-  hive: Hive MCP server
-  index: SQLite index
-  indexer: nightly indexer
-  oauth -> hive
-  hive -> index
-  indexer -> index
-}
-gpu: GPU desktop {
-  ollama: Ollama
-}
-client -> pi.oauth: Tailscale Funnel
-pi.hive -> gpu.ollama: search · Scout
-pi.indexer -> gpu.ollama: embeddings
+```mermaid alt="An AI assistant reaches the Hive MCP server on a Raspberry Pi through a Tailscale Funnel and OAuth. On the Pi, the server and a nightly indexer share a SQLite index. Both call Ollama on a GPU desktop, for search and Scout and for embeddings."
+graph TD
+  client[AI assistant]
+  subgraph pi[Raspberry Pi 4 - k3s]
+    oauth[OAuth 2.1] --> hive[Hive MCP server]
+    hive --> index[(SQLite index)]
+    indexer[nightly indexer] --> index
+  end
+  subgraph gpu[GPU desktop]
+    ollama[Ollama]
+  end
+  client -->|Tailscale Funnel| oauth
+  hive -->|search · Scout| ollama
+  indexer -->|embeddings| ollama
 ```
 
 ## Evidence

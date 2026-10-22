@@ -53,22 +53,18 @@ with every tool catalogued in the docs. GUI modules layer on top where wanted.
 Every switch goes through `nh`, which prints the package and closure-size diff
 before anything activates.
 
-```d2
-flake: your flake.nix
-mk: lib.mkConfigs
-profile: mkProfile {
-  base: always-on base
-  tier: tier features
-  gui: GUI modules
-}
-hm: Home Manager
-darwin: nix-darwin
-nixos: NixOS
-flake -> mk: identity · configs
-mk -> profile
-profile -> hm
-profile -> darwin
-profile -> nixos
+```mermaid alt="Your flake.nix passes an identity and configs to lib.mkConfigs, which builds a profile from an always-on base, tier features, and GUI modules. The profile produces Home Manager, nix-darwin, and NixOS configurations."
+graph TD
+  flake[your flake.nix] -->|identity · configs| mk[lib.mkConfigs]
+  mk --> profile
+  subgraph profile[mkProfile]
+    base[always-on base]
+    tier[tier features]
+    gui[GUI modules]
+  end
+  profile --> hm[Home Manager]
+  profile --> darwin[nix-darwin]
+  profile --> nixos[NixOS]
 ```
 
 ## Evidence
