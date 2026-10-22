@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page not found · cdprice.dev (flair mockup)</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/controls.js"></script>
+</head>
+<body>
+  <div class="grid-top" aria-hidden="true"></div>
+  <header class="site-header gutter">
+    <div class="col">
+      <a href="/landing.html" class="wordmark">cdprice<span>.dev</span><i class="cursor" aria-hidden="true"></i></a>
+      <button type="button" class="toggle" aria-label="Toggle dark mode">
+        <svg class="icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <svg class="icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top" class="gutter">
+    <div class="col" style="display:flex;flex-direction:column;gap:24px">
+      <h1 style="font-size:1.5rem;font-weight:600">Page not found</h1>
+      <p class="shell">
+        <span><span class="prompt">$ </span>cd <span id="path">this-page</span></span>
+        <span class="err">cd: no such file or directory: <span id="path-err">this-page</span></span>
+      </p>
+      <p><a href="/landing.html" style="text-underline-offset:4px">Back to cdprice.dev</a></p>
+    </div>
+  </main>
+
+  <footer class="site-footer gutter">
+    <div class="col">
+      <span>© 2026 Carson Price</span>
+      <span><a href="#">how it's built</a><span aria-hidden="true"> · </span><a href="https://github.com/cdprice02/portfolio">source</a></span>
+    </div>
+  </footer>
+  <a id="to-top" href="#top" hidden aria-label="Back to top"></a>
+  <script>
+    {
+      // textContent only: the path is reader-controlled input.
+      const path = decodeURIComponent(location.pathname);
+      for (const id of ["path", "path-err"]) document.getElementById(id).textContent = path;
+    }
+  </script>
+</body>
+</html>
