@@ -8,7 +8,7 @@ links:
     href: https://github.com/cdprice02/nix-atelier#quick-start
 figures:
   - value: "3"
-    label: platforms from one function
+    label: config kinds from one call
     section: how-it-works
   - value: "~15"
     label: lines in your flake

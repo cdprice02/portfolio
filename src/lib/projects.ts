@@ -1,4 +1,5 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import type { MarkdownHeading } from "astro";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 
 type Project = CollectionEntry<"projects">;
 
@@ -22,4 +23,58 @@ export function repoLabel(repo: string): string {
 export function alsoPhrase(project: Project): string {
   const { tagline } = project.data;
   return tagline.charAt(0).toLowerCase() + tagline.slice(1);
+}
+
+/** A Project has a page exactly when its markdown body has text. */
+export function hasPage(project: Project): boolean {
+  return (project.body ?? "").trim() !== "";
+}
+
+export interface ProjectPage {
+  project: Project;
+  updated: Date;
+  sections: MarkdownHeading[];
+}
+
+/**
+ * Every Project with a page, with its h2s. Zod sees only frontmatter, so the
+ * rules that depend on the body are checked here and fail the build.
+ */
+export async function getPages(): Promise<ProjectPage[]> {
+  const problems: string[] = [];
+  const pages: ProjectPage[] = [];
+  for (const project of await getCollection("projects")) {
+    const { updated, figures, caveat } = project.data;
+    if (!hasPage(project)) {
+      const stray = Object.entries({ updated, figures, caveat })
+        .filter(([, value]) => value !== undefined)
+        .map(([field]) => field);
+      if (stray.length > 0) {
+        problems.push(`${project.id}: ${stray.join(", ")} set but no body`);
+      }
+      continue;
+    }
+    const { headings } = await render(project);
+    const sections = headings.filter((heading) => heading.depth === 2);
+    const ids = new Set(sections.map((heading) => heading.slug));
+    for (const { section } of figures ?? []) {
+      if (!ids.has(section)) {
+        problems.push(`${project.id}: figure section "${section}" is no h2`);
+      }
+    }
+    if (updated === undefined) {
+      problems.push(`${project.id}: has a body but no updated date`);
+      continue;
+    }
+    pages.push({ project, updated, sections });
+  }
+  if (problems.length > 0) {
+    throw new Error(`Invalid Project pages:\n${problems.join("\n")}`);
+  }
+  return pages;
+}
+
+/** The date part of an ISO timestamp: `2026-10-22`. */
+export function isoDate(date: Date): string {
+  return date.toISOString().slice(0, 10);
 }

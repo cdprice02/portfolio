@@ -1,10 +1,12 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
+import { satteri } from "@astrojs/markdown-satteri";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
 import sitemap from "@astrojs/sitemap";
 import { isProduction } from "./src/lib/build.ts";
+import { stripD2 } from "./src/lib/strip-d2.ts";
 import cspHeaders from "./scripts/csp-headers.mjs";
 
 export default defineConfig({
@@ -32,6 +34,9 @@ export default defineConfig({
         ],
       },
     },
+  },
+  markdown: {
+    processor: satteri({ mdastPlugins: [stripD2] }),
   },
   integrations: [react(), icon(), sitemap(), cspHeaders()],
   fonts: [

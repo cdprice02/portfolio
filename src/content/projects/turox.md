@@ -100,8 +100,7 @@ principal variations across a fixed set of positions, at the same speed, mean
 playing strength is unchanged by construction.
 
 On Lichess, turox-bot is rated 2019 in bullet over 868 rated games and 1954 in
-blitz over 1,040, taken from its public profile and charted from the bot's own
-game records.
+blitz over 1,040, as its public profile shows.
 
 ## Key decisions
 
