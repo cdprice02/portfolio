@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>turox · Carson Price (mockup)</title>
+  <meta name="robots" content="noindex" />
+  <link rel="alternate" type="text/markdown" href="#" title="turox as markdown" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="controls.js"></script>
+</head>
+<body>
+  <header class="site-header gutter">
+    <div class="col">
+      <a href="landing.html" class="wordmark">cdprice<span>.dev</span></a>
+      <button type="button" class="toggle" aria-label="Toggle dark mode">
+        <svg class="icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <svg class="icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top" class="gutter">
+    <div class="col">
+      <a href="landing.html#projects" class="back">← projects</a>
+
+      <header class="page-head">
+        <h1 style="view-transition-name: title-turox">turox</h1>
+        <p class="tagline">A chess engine, forged in Rust.</p>
+
+        <p class="meta-line">
+          <span class="status"><span class="dot" aria-hidden="true"></span>active</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>updated <time datetime="2026-10-20">20 Oct 2026</time></span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>last commit 3 days ago</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>v0.4.0</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>bullet 2019 · blitz 1954</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="https://github.com/cdprice02/turox">
+            <svg class="icon" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>cdprice02/turox</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="#" title="Markdown twin, not in this mockup">.md</a>
+        </p>
+
+        <dl class="meta-dl">
+          <dt>status</dt><dd>active</dd>
+          <dt>updated</dt><dd><time datetime="2026-10-20">20 October 2026</time></dd>
+          <dt>last commit</dt><dd>3 days ago</dd>
+          <dt>release</dt><dd>v0.4.0</dd>
+          <dt>lichess</dt><dd>2019 bullet · 1954 blitz · 2082 rapid</dd>
+          <dt>source</dt><dd><a href="https://github.com/cdprice02/turox">cdprice02/turox</a> · <a href="#" title="Markdown twin, not in this mockup">markdown</a></dd>
+        </dl>
+
+        <p><span class="ph">placeholder: last commit, release, and ratings are live figures; prose is filler until Project page copy</span></p>
+      </header>
+
+      <article class="prose">
+        <section id="why" class="reveal" aria-labelledby="h-why">
+          <h2 id="h-why">Why it exists</h2>
+          <p>
+            turox is a place to do performance work where the result can be measured, not argued.
+            A chess engine is a clean target: move generation has an exact answer to check against,
+            search speed is a number, and playing strength can be settled with a statistical test
+            instead of a hunch. Every change either earns its place or gets reverted.
+          </p>
+          <p>
+            It is also a long-running Rust project with a real opponent pool. Playing as a bot on
+            Lichess means it meets thousands of human and engine opponents it was never tuned
+            against, which keeps the measured gains honest.
+          </p>
+          <a class="challenge" href="https://lichess.org/@/turox-bot">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            Challenge turox-bot on Lichess
+          </a>
+          <p class="muted" style="font-size:.875rem">It accepts challenges while its runner is up, which is most evenings. <span class="ph">wording: #65</span></p>
+        </section>
+
+        <section class="reveal" aria-labelledby="h-how">
+          <h2 id="h-how">How it works</h2>
+          <p>
+            The board is a set of 64-bit bitboards, one per piece type and colour. Sliding-piece attacks
+            come from precomputed magic tables, so generating moves is mostly lookups and bit
+            operations. Search is iterative-deepening alpha-beta with a transposition table, and
+            the evaluation is hand-written and tuned against self-play.
+          </p>
+          <figure class="panel">
+            <svg viewBox="0 0 640 210" role="img" aria-labelledby="dia-title" font-family="Fira Code, monospace" font-size="12">
+              <title id="dia-title">Lichess sends games to the bot runner, which drives the turox engine over UCI; the SPRT harness drives the same engine in matches.</title>
+              <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0 0 10 5 0 10z" fill="var(--muted)"/>
+                </marker>
+              </defs>
+              <g fill="var(--bg)" stroke="var(--line)" stroke-width="1.5">
+                <rect x="8" y="24" width="150" height="52" rx="8"/>
+                <rect x="8" y="128" width="150" height="52" rx="8"/>
+                <rect x="232" y="24" width="150" height="52" rx="8"/>
+              </g>
+              <rect x="452" y="12" width="180" height="186" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
+              <g fill="var(--fg)" text-anchor="middle">
+                <text x="83" y="55">Lichess</text>
+                <text x="83" y="159">SPRT harness</text>
+                <text x="307" y="55">bot runner</text>
+              </g>
+              <g fill="var(--accent)" text-anchor="middle">
+                <text x="542" y="38" font-weight="500">turox engine</text>
+              </g>
+              <g fill="var(--fg)">
+                <rect x="468" y="54" width="148" height="30" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+                <text x="542" y="73" text-anchor="middle">UCI</text>
+                <rect x="468" y="94" width="148" height="30" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+                <text x="542" y="113" text-anchor="middle">search · eval</text>
+                <rect x="468" y="134" width="148" height="30" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+                <text x="542" y="153" text-anchor="middle">movegen (bitboards)</text>
+              </g>
+              <g stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+                <path d="M158 50H228"/>
+                <path d="M382 50H448"/>
+                <path d="M158 154H300V100H448"/>
+              </g>
+              <g fill="var(--muted)" font-size="11">
+                <text x="166" y="42">games</text>
+                <text x="390" y="42">UCI</text>
+                <text x="166" y="146">matches</text>
+              </g>
+            </svg>
+            <figcaption>Stand-in for the D2 diagram: theme colours only, no client JS. <span class="ph">placeholder</span></figcaption>
+          </figure>
+        </section>
+
+        <section class="reveal" aria-labelledby="h-evidence">
+          <h2 id="h-evidence">Evidence</h2>
+          <p>
+            Move generation is checked against perft counts from the standard test positions before
+            any speed is reported. Speeds below are single-threaded on one machine, release build,
+            median of five runs. <span class="ph">placeholder method</span>
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Measure</th><th class="num">Result</th><th>How</th></tr></thead>
+              <tbody>
+                <tr><td>Move generation</td><td class="num">~52M positions/s</td><td class="muted">perft 6, start position</td></tr>
+                <tr><td>Search</td><td class="num">~1.5M nodes/s</td><td class="muted">bench, 40 positions</td></tr>
+                <tr><td>Strength changes</td><td class="num">SPRT</td><td class="muted">kept only if [0, 5] Elo passes</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="panel">
+            <div class="legend" aria-hidden="true">
+              <span style="color:var(--accent)"><i class="swatch"></i>bullet</span>
+              <span style="color:var(--muted)"><i class="swatch" style="background:repeating-linear-gradient(90deg,currentColor 0 5px,transparent 5px 9px)"></i>blitz</span>
+            </div>
+<svg viewBox="0 0 640 260" role="img" aria-labelledby="chart-title" font-family="Fira Code, monospace" font-size="11" fill="var(--muted)">
+<title id="chart-title">turox-bot's Lichess bullet and blitz ratings by month, May 2025 to October 2026</title>
+<line x1="44" x2="628" y1="230.0" y2="230.0" stroke="var(--line)" stroke-width="1"/>
+<text x="36" y="234.0" text-anchor="end">1600</text>
+<line x1="44" x2="628" y1="186.8" y2="186.8" stroke="var(--line)" stroke-width="1"/>
+<text x="36" y="190.8" text-anchor="end">1700</text>
+<line x1="44" x2="628" y1="143.6" y2="143.6" stroke="var(--line)" stroke-width="1"/>
+<text x="36" y="147.6" text-anchor="end">1800</text>
+<line x1="44" x2="628" y1="100.4" y2="100.4" stroke="var(--line)" stroke-width="1"/>
+<text x="36" y="104.4" text-anchor="end">1900</text>
+<line x1="44" x2="628" y1="57.2" y2="57.2" stroke="var(--line)" stroke-width="1"/>
+<text x="36" y="61.2" text-anchor="end">2000</text>
+<line x1="44" x2="628" y1="14.0" y2="14.0" stroke="var(--line)" stroke-width="1"/>
+<text x="36" y="18.0" text-anchor="end">2100</text>
+<text x="112.7" y="252" text-anchor="middle">Jul 25</text>
+<text x="215.8" y="252" text-anchor="middle">Oct 25</text>
+<text x="318.8" y="252" text-anchor="middle">Jan 26</text>
+<text x="421.9" y="252" text-anchor="middle">Apr 26</text>
+<text x="524.9" y="252" text-anchor="middle">Jul 26</text>
+<text x="628.0" y="252" text-anchor="end">Oct 26</text>
+<polyline points="44.0,189.0 78.4,175.6 112.7,160.9 147.1,139.7 181.4,128.0 215.8,125.5 250.1,115.5 284.5,102.1 318.8,100.0 353.2,100.8 387.5,91.8 421.9,84.0 456.2,87.0 490.6,87.4 524.9,78.8 559.3,76.2 593.6,81.8 628.0,77.1" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linejoin="round" stroke-dasharray="5 4"/>
+<circle cx="44.0" cy="189.0" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, May 2025: 1695</title></circle>
+<circle cx="78.4" cy="175.6" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Jun 2025: 1726</title></circle>
+<circle cx="112.7" cy="160.9" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Jul 2025: 1760</title></circle>
+<circle cx="147.1" cy="139.7" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Aug 2025: 1809</title></circle>
+<circle cx="181.4" cy="128.0" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Sep 2025: 1836</title></circle>
+<circle cx="215.8" cy="125.5" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Oct 2025: 1842</title></circle>
+<circle cx="250.1" cy="115.5" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Nov 2025: 1865</title></circle>
+<circle cx="284.5" cy="102.1" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Dec 2025: 1896</title></circle>
+<circle cx="318.8" cy="100.0" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Jan 2026: 1901</title></circle>
+<circle cx="353.2" cy="100.8" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Feb 2026: 1899</title></circle>
+<circle cx="387.5" cy="91.8" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Mar 2026: 1920</title></circle>
+<circle cx="421.9" cy="84.0" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Apr 2026: 1938</title></circle>
+<circle cx="456.2" cy="87.0" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, May 2026: 1931</title></circle>
+<circle cx="490.6" cy="87.4" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Jun 2026: 1930</title></circle>
+<circle cx="524.9" cy="78.8" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Jul 2026: 1950</title></circle>
+<circle cx="559.3" cy="76.2" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Aug 2026: 1956</title></circle>
+<circle cx="593.6" cy="81.8" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Sep 2026: 1943</title></circle>
+<circle cx="628.0" cy="77.1" r="3.5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"><title>Blitz, Oct 2026: 1954</title></circle>
+<polyline points="44.0,179.9 78.4,153.5 112.7,143.2 147.1,128.9 181.4,106.4 215.8,96.1 250.1,95.6 284.5,84.8 318.8,70.2 353.2,69.7 387.5,71.9 421.9,61.1 456.2,52.9 490.6,58.5 524.9,58.9 559.3,48.1 593.6,46.0 628.0,49.0" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="44.0" cy="179.9" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, May 2025: 1716</title></circle>
+<circle cx="78.4" cy="153.5" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Jun 2025: 1777</title></circle>
+<circle cx="112.7" cy="143.2" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Jul 2025: 1801</title></circle>
+<circle cx="147.1" cy="128.9" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Aug 2025: 1834</title></circle>
+<circle cx="181.4" cy="106.4" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Sep 2025: 1886</title></circle>
+<circle cx="215.8" cy="96.1" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Oct 2025: 1910</title></circle>
+<circle cx="250.1" cy="95.6" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Nov 2025: 1911</title></circle>
+<circle cx="284.5" cy="84.8" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Dec 2025: 1936</title></circle>
+<circle cx="318.8" cy="70.2" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Jan 2026: 1970</title></circle>
+<circle cx="353.2" cy="69.7" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Feb 2026: 1971</title></circle>
+<circle cx="387.5" cy="71.9" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Mar 2026: 1966</title></circle>
+<circle cx="421.9" cy="61.1" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Apr 2026: 1991</title></circle>
+<circle cx="456.2" cy="52.9" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, May 2026: 2010</title></circle>
+<circle cx="490.6" cy="58.5" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Jun 2026: 1997</title></circle>
+<circle cx="524.9" cy="58.9" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Jul 2026: 1996</title></circle>
+<circle cx="559.3" cy="48.1" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Aug 2026: 2021</title></circle>
+<circle cx="593.6" cy="46.0" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Sep 2026: 2026</title></circle>
+<circle cx="628.0" cy="49.0" r="3.5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><title>Bullet, Oct 2026: 2019</title></circle>
+</svg>
+<details>
+  <summary>Show the data as a table</summary>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Month</th><th class="num">Bullet</th><th class="num">Blitz</th></tr></thead>
+    <tbody>
+<tr><td class="mono">2025-05</td><td class="num">1716</td><td class="num">1695</td></tr>
+<tr><td class="mono">2025-06</td><td class="num">1777</td><td class="num">1726</td></tr>
+<tr><td class="mono">2025-07</td><td class="num">1801</td><td class="num">1760</td></tr>
+<tr><td class="mono">2025-08</td><td class="num">1834</td><td class="num">1809</td></tr>
+<tr><td class="mono">2025-09</td><td class="num">1886</td><td class="num">1836</td></tr>
+<tr><td class="mono">2025-10</td><td class="num">1910</td><td class="num">1842</td></tr>
+<tr><td class="mono">2025-11</td><td class="num">1911</td><td class="num">1865</td></tr>
+<tr><td class="mono">2025-12</td><td class="num">1936</td><td class="num">1896</td></tr>
+<tr><td class="mono">2026-01</td><td class="num">1970</td><td class="num">1901</td></tr>
+<tr><td class="mono">2026-02</td><td class="num">1971</td><td class="num">1899</td></tr>
+<tr><td class="mono">2026-03</td><td class="num">1966</td><td class="num">1920</td></tr>
+<tr><td class="mono">2026-04</td><td class="num">1991</td><td class="num">1938</td></tr>
+<tr><td class="mono">2026-05</td><td class="num">2010</td><td class="num">1931</td></tr>
+<tr><td class="mono">2026-06</td><td class="num">1997</td><td class="num">1930</td></tr>
+<tr><td class="mono">2026-07</td><td class="num">1996</td><td class="num">1950</td></tr>
+<tr><td class="mono">2026-08</td><td class="num">2021</td><td class="num">1956</td></tr>
+<tr><td class="mono">2026-09</td><td class="num">2026</td><td class="num">1943</td></tr>
+<tr><td class="mono">2026-10</td><td class="num">2019</td><td class="num">1954</td></tr>
+    </tbody>
+  </table></div>
+</details>
+            <figcaption>turox-bot's Lichess ratings, as of 20 October 2026. Hover a point for its value. <span class="ph">placeholder data</span></figcaption>
+          </figure>
+        </section>
+
+        <section class="reveal" aria-labelledby="h-decisions">
+          <h2 id="h-decisions">Key decisions</h2>
+          <ul>
+            <li><strong>Magic bitboards over a mailbox board.</strong> Lookups beat loops for sliding pieces, at the cost of a startup table build. See <a href="#">ADR 0002</a>.</li>
+            <li><strong>SPRT as the only gate on strength.</strong> Self-play matches stop as soon as the result is statistically clear, so small gains are cheap to test. See <a href="#">ADR 0004</a>.</li>
+            <li><strong>Hand-written evaluation, not NNUE.</strong> Every term stays explainable while the search is still the bottleneck.</li>
+          </ul>
+          <p><span class="ph">placeholder ADR links</span></p>
+        </section>
+
+        <section class="reveal" aria-labelledby="h-status">
+          <h2 id="h-status">Status and what's next</h2>
+          <p>
+            Active. The next work is search: better move ordering and pruning, each landed only
+            behind a passing SPRT run. A browser build, so the engine can be played right here, is a
+            later follow-up.
+          </p>
+        </section>
+
+        <section id="recent" class="reveal" aria-labelledby="h-recent">
+          <h2 id="h-recent">Recent changes</h2>
+          <ul class="changes">
+            <li><time datetime="2026-10-12">12 Oct 2026</time><p>Late move reductions landed after an SPRT pass.</p></li>
+            <li><time datetime="2026-09-03">3 Sep 2026</time><p>Released v0.4.0 with a faster transposition table.</p></li>
+            <li><time datetime="2026-07-21">21 Jul 2026</time><p>turox-bot passed 1,000 rated blitz games on Lichess.</p></li>
+          </ul>
+          <p><span class="ph">placeholder Changelog entries</span></p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer gutter">
+    <div class="col">
+      <span>© 2026 Carson Price</span>
+      <span>
+        <a href="#" title="cdprice.dev Project page, not in this mockup">how it's built</a>
+        <span aria-hidden="true"> · </span>
+        <a href="https://github.com/cdprice02/portfolio">source</a>
+      </span>
+    </div>
+  </footer>
+
+  <a id="to-top" href="#top" hidden aria-label="Back to top">
+    <svg class="icon" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+  </a>
+</body>
+</html>
