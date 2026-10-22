@@ -7,15 +7,15 @@ links:
   - label: Quick start
     href: https://github.com/cdprice02/nix-atelier#quick-start
 figures:
-  - value: "4"
-    label: systems built in CI
-    section: evidence
   - value: "3"
-    label: config kinds from one call
+    label: platforms from one function
     section: how-it-works
   - value: "~15"
     label: lines in your flake
     section: how-it-works
+  - value: "16"
+    label: releases since June
+    section: status-and-whats-next
 updated: 2026-10-22
 tags: [Nix, macOS, Linux, WSL2]
 status: maintained
