@@ -129,3 +129,7 @@ turox plays. It speaks UCI end to end and runs on Lichess under a supervisor
 script that restarts it after a crash or stall and keeps the laptop awake. The
 current version is 0.1.0, with no tagged release yet; planned work lives on the
 [issue tracker](https://github.com/cdprice02/turox/issues).
+
+Next, the bot and its SPRT matches move off the laptop: the bot to an always-on
+cloud host, and the matches to on-demand cloud machines that contributors can
+run in their own accounts.
