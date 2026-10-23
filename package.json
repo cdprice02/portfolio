@@ -20,7 +20,7 @@
     "serve": "wrangler dev --port 8788 --compatibility-date 2026-01-01",
     "check:csp": "node scripts/check-csp.mjs",
     "check:csp:runtime": "node scripts/check-csp-runtime.mjs",
-    "lighthouse": "lhci autorun && lhci autorun --config=lighthouserc.dark.json"
+    "lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.4",
