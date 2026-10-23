@@ -27,7 +27,8 @@ truth (usually a public repository).
 _Avoid_: Repo, item, work
 
 **Project card**:
-A Project's summary on the Landing page, written for a general reader.
+A Project's summary on the Landing page, written for a general reader; when
+the Project has a Project page, the whole card opens it.
 _Avoid_: Tile, preview
 
 **Key figure**:
