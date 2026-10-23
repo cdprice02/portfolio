@@ -14,7 +14,7 @@ export const sha256 = (text) =>
   `'sha256-${createHash("sha256").update(text).digest("base64")}'`;
 
 // Astro hashes only the scripts and styles it processes; `is:inline` scripts
-// are emitted verbatim and need their hashes added here.
+// and styles are emitted verbatim and need their hashes added here.
 export function inlineCode(html) {
   const found = [];
   const patterns = [
@@ -55,9 +55,7 @@ export async function moveCspToHeaders(dir) {
     if (!match) throw new Error(`${file} has no CSP meta tag`);
     parsePolicy(match[1], directives);
     for (const { kind, body } of inlineCode(html)) {
-      if (kind === "script") {
-        parsePolicy(`script-src ${sha256(body)}`, directives);
-      }
+      parsePolicy(`${kind}-src ${sha256(body)}`, directives);
     }
     pages.push([file, html.replace(META, "")]);
   }
