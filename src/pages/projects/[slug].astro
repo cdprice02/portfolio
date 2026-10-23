@@ -3,7 +3,7 @@ import { render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import MetaLine from "../../components/MetaLine.astro";
 import Base from "../../layouts/Base.astro";
-import { getPages, type ProjectPage } from "../../lib/projects";
+import { getPages, isoDate, type ProjectPage } from "../../lib/projects";
 
 export async function getStaticPaths() {
   const pages = await getPages();
@@ -25,6 +25,7 @@ const {
   figures = [],
   caveat,
   status,
+  tags,
 } = project.data;
 const { Content } = await render(project);
 const sectionText = new Map(sections.map(({ slug, text }) => [slug, text]));
@@ -32,12 +33,31 @@ const pills = [
   ...links.map((link) => ({ ...link, icon: "lucide:external-link" })),
   { label: "Source on GitHub", href: repo, icon: "simple-icons:github" },
 ];
+
+const path = `/projects/${project.id}/`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  name: title,
+  description: summary,
+  codeRepository: repo,
+  programmingLanguage: tags[0],
+  dateModified: isoDate(updated),
+  author: { "@id": new URL("/#person", Astro.site!).href },
+};
 ---
 
 <Base
   title={`${title} · Carson Price`}
   description={summary}
-  path={`/projects/${project.id}/`}
+  path={path}
+  image={{
+    src: `/og/${project.id}.png`,
+    width: 1200,
+    height: 630,
+    alt: `${title}, ${tagline}, cdprice.dev`,
+  }}
+  jsonLd={jsonLd}
 >
   <a
     href="/#projects"

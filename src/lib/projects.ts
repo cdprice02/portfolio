@@ -44,7 +44,7 @@ export async function getPages(): Promise<ProjectPage[]> {
   const problems: string[] = [];
   const pages: ProjectPage[] = [];
   for (const project of await getCollection("projects")) {
-    const { updated, figures, caveat } = project.data;
+    const { updated, figures, caveat, tags } = project.data;
     if (!hasPage(project)) {
       const stray = Object.entries({ updated, figures, caveat })
         .filter(([, value]) => value !== undefined)
@@ -61,6 +61,11 @@ export async function getPages(): Promise<ProjectPage[]> {
       if (!ids.has(section)) {
         problems.push(`${project.id}: figure section "${section}" is no h2`);
       }
+    }
+    if (tags.length === 0) {
+      problems.push(
+        `${project.id}: has a body but no tags (first is the language)`,
+      );
     }
     if (updated === undefined) {
       problems.push(`${project.id}: has a body but no updated date`);

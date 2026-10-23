@@ -24,6 +24,7 @@ jobs:
       - run: pnpm check
       - run: pnpm build
       - run: pnpm check:csp
+      - run: pnpm check:og
       - run: pnpm check:csp:runtime
       - name: Check internal links
         uses: lycheeverse/lychee-action@v2.9.0

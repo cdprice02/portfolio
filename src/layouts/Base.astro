@@ -20,6 +20,7 @@ const {
     height: 630,
     alt: `${profile.name}, ${profile.role}, cdprice.dev`,
   },
+  jsonLd,
 } = Astro.props;
 const year = new Date().getFullYear();
 const beaconToken = isProduction ? profile.analyticsToken : undefined;
@@ -34,7 +35,13 @@ if (isProduction && !beaconToken) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <Head title={title} description={description} path={path} image={image} />
+    <Head
+      title={title}
+      description={description}
+      path={path}
+      image={image}
+      jsonLd={jsonLd}
+    />
     <script is:inline>
       {
         let theme = null;
