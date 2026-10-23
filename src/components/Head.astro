@@ -9,9 +9,11 @@ export interface Props {
   /** Canonical path, or null for pages that shouldn't claim a URL (the 404 page). */
   path: string | null;
   image: { src: string; width: number; height: number; alt: string };
+  /** Structured data for pages other than the Landing page. */
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description, path, image } = Astro.props;
+const { title, description, path, image, jsonLd: pageJsonLd } = Astro.props;
 const site = Astro.site!;
 const profile = await getProfile();
 const canonical = path === null ? null : new URL(path, site).href;
@@ -22,11 +24,13 @@ const portrait = await getImage({
   format: "webp",
 });
 
-const jsonLd = {
+const landingJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   mainEntity: {
     "@type": "Person",
+    // Project pages name the author by this id.
+    "@id": new URL("/#person", site).href,
     name: profile.name,
     jobTitle: profile.role,
     url: site.href,
@@ -67,10 +71,10 @@ const jsonLd = {
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-{path === "/" && (
+{(path === "/" || pageJsonLd) && (
   <script
     is:inline
     type="application/ld+json"
-    set:html={JSON.stringify(jsonLd)}
+    set:html={JSON.stringify(path === "/" ? landingJsonLd : pageJsonLd)}
   />
 )}

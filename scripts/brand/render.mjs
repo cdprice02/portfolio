@@ -1,12 +1,29 @@
-// Regenerates the committed brand images: public/og.png, public/apple-touch-icon.png,
-// and public/favicon.ico. Run with `pnpm brand` after changing the template, the
-// favicon SVG, the headshot, or the role.
-import { readFile, writeFile } from "node:fs/promises";
+// Regenerates the committed brand images: public/og.png, one public/og/<id>.png
+// per Project page, public/apple-touch-icon.png, and public/favicon.ico. Run with
+// `pnpm brand` after changing a template, the favicon SVG, the headshot, the role,
+// or a Project page's title or tagline.
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
+import { parse } from "yaml";
 
 const root = new URL("../../", import.meta.url);
 const at = (path) => new URL(path, root);
+
+/** The title and tagline of every Project that has a body, which is a Project page. */
+async function projectPages() {
+  const dir = at("src/content/projects/");
+  const pages = [];
+  for (const file of (await readdir(dir)).filter((f) => f.endsWith(".md"))) {
+    const [, frontmatter, body] = (
+      await readFile(new URL(file, dir), "utf8")
+    ).split(/^---$/m);
+    if (body.trim() === "") continue;
+    const { title, tagline } = parse(frontmatter);
+    pages.push({ id: file.replace(/\.md$/, ""), title, tagline });
+  }
+  return pages;
+}
 
 /** An ICO holding a single PNG image, which every current browser accepts. */
 function pngToIco(png, size) {
@@ -33,6 +50,22 @@ try {
   await og.goto(at("scripts/brand/og.html").href, { waitUntil: "networkidle" });
   await og.evaluate(() => document.fonts.ready);
   await og.screenshot({ path: fileURLToPath(at("public/og.png")) });
+
+  await mkdir(at("public/og/"), { recursive: true });
+  for (const { id, title, tagline } of await projectPages()) {
+    await og.goto(at("scripts/brand/og-project.html").href, {
+      waitUntil: "networkidle",
+    });
+    await og.evaluate(
+      ([t, l]) => {
+        document.getElementById("title").textContent = t;
+        document.getElementById("tagline").textContent = l;
+        return document.fonts.ready;
+      },
+      [title, tagline],
+    );
+    await og.screenshot({ path: fileURLToPath(at(`public/og/${id}.png`)) });
+  }
 
   const svg = await readFile(at("public/favicon.svg"), "utf8");
   const icon = async (size, background) => {

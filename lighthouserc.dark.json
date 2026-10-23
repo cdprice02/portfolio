@@ -3,7 +3,6 @@
     "collect": {
       "startServerCommand": "pnpm serve",
       "startServerReadyPattern": "Ready on",
-      "url": ["http://localhost:8788/", "http://localhost:8788/404"],
       "numberOfRuns": 1,
       "settings": {
         "skipAudits": ["robots-txt"],

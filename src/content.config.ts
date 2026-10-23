@@ -11,6 +11,8 @@ const projects = defineCollection({
       summary: z.string(),
       repo: z.url(),
       links: z.array(z.object({ label: z.string(), href: z.url() })).optional(),
+      // The first tag is the primary programming language (the Project page's
+      // programmingLanguage); the rest are topics.
       tags: z.array(z.string()),
       status: z.enum(["active", "maintained", "archived"]),
       updated: z.coerce.date().optional(),
