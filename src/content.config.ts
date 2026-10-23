@@ -47,6 +47,7 @@ const profile = defineCollection({
       linkedin: z.url(),
       analyticsToken: z.string().optional(),
       headshot: image(),
+      dog: z.object({ name: z.string(), photo: image() }).optional(),
     }),
 });
 
