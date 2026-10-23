@@ -50,19 +50,17 @@ enforces: `turox-chess` holds the rules of chess, `turox-engine` holds the part
 that plays, and `turox-notation` holds how a game is written down. Neither the
 rules nor the engine takes a runtime dependency.
 
-```d2
-lichess: Lichess
-runner: bot runner
-sprt: SPRT harness
-engine: turox engine {
-  uci: UCI
-  search: search · eval
-  movegen: movegen (bitboards)
-  uci -> search -> movegen
-}
-lichess -> runner: games
-runner -> engine.uci: UCI
-sprt -> engine.uci: matches
+```mermaid alt="Lichess games reach the turox engine through the bot runner, and the SPRT harness plays matches against it; both talk to the engine over UCI. Inside the engine, UCI feeds search and evaluation, which use bitboard move generation."
+graph TD
+  lichess[Lichess]
+  runner[bot runner]
+  sprt[SPRT harness]
+  subgraph engine[turox engine]
+    uci[UCI] --> search[search · eval] --> movegen[movegen - bitboards]
+  end
+  lichess -->|games| runner
+  runner -->|UCI| uci
+  sprt -->|matches| uci
 ```
 
 ## Evidence

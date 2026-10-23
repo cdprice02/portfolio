@@ -126,6 +126,52 @@
     color: var(--accent);
   }
 
+  /*
+   * The diagram renderer's own style block is stripped (CSP), so its colour
+   * variables are defined here from the site tokens. The SVG keeps its
+   * intrinsic width so text stays legible; a narrow column scrolls instead.
+   */
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .diagram-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    background: var(--surface);
+    padding: 1rem;
+  }
+
+  .diagram svg {
+    display: block;
+    width: auto;
+    max-width: none;
+    height: auto;
+    margin-inline: auto;
+    font-family: var(--font-sans);
+    --_text: var(--fg);
+    --_text-sec: var(--muted);
+    --_text-muted: var(--muted);
+    --_text-faint: var(--line);
+    --_line: var(--muted);
+    --_arrow: var(--accent);
+    --_node-fill: var(--accent-soft);
+    --_node-stroke: var(--accent);
+    --_group-fill: var(--surface);
+    --_group-hdr: var(--accent-soft);
+    --_inner-stroke: var(--line);
+    --_key-badge: var(--line);
+  }
+
+  .diagram figcaption {
+    max-width: 68ch;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
   /* Block display lets a wide table scroll inside the column. */
   .prose table {
     display: block;

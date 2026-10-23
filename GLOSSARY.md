@@ -36,6 +36,11 @@ word), true as of the page's last update, that links to the part of the page
 backing it.
 _Avoid_: Stat, metric, highlight
 
+**Diagram**:
+The single drawing on a Project page that shows how that Project's parts
+connect, with alt text naming what it shows.
+_Avoid_: Figure, chart, graphic
+
 **Also line**:
 The single line on the Landing page that names lesser Projects without giving
 them a Project card; a named Project with a Project page links to it.
