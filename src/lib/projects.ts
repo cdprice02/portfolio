@@ -83,3 +83,15 @@ export async function getPages(): Promise<ProjectPage[]> {
 export function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
+
+/**
+ * CSS giving each Project's title one view-transition-name, so a card title
+ * morphs into its page heading. Emitted as a style element because the CSP
+ * forbids inline style attributes.
+ */
+export function transitionNames(ids: string[]): string {
+  const rules = ids.map(
+    (id) => `[data-project="${id}"]{view-transition-name:project-${id}}`,
+  );
+  return `@media (prefers-reduced-motion: no-preference){${rules.join("")}}`;
+}

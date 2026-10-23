@@ -3,7 +3,12 @@ import { render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import MetaLine from "../../components/MetaLine.astro";
 import Base from "../../layouts/Base.astro";
-import { getPages, isoDate, type ProjectPage } from "../../lib/projects";
+import {
+  getPages,
+  isoDate,
+  transitionNames,
+  type ProjectPage,
+} from "../../lib/projects";
 
 export async function getStaticPaths() {
   const pages = await getPages();
@@ -59,6 +64,8 @@ const jsonLd = {
   }}
   jsonLd={jsonLd}
 >
+  <style is:inline slot="head" set:html={transitionNames([project.id])} />
+
   <a
     href="/#projects"
     class="mb-6 inline-flex font-mono text-sm text-muted no-underline hover:text-accent"
@@ -67,7 +74,10 @@ const jsonLd = {
   </a>
 
   <header class="flex flex-col gap-2.5">
-    <h1 class="w-fit text-4xl leading-[1.1] font-bold tracking-tight sm:text-5xl">
+    <h1
+      data-project={project.id}
+      class="w-fit text-4xl leading-[1.1] font-bold tracking-tight sm:text-5xl"
+    >
       {title}
     </h1>
     <p class="text-lg font-medium text-accent">{tagline}</p>

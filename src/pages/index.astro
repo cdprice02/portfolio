@@ -4,7 +4,7 @@ import Hero from "../components/Hero.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Base from "../layouts/Base.astro";
 import { getProfile } from "../lib/profile";
-import { getAlso, getCards } from "../lib/projects";
+import { getAlso, getCards, transitionNames } from "../lib/projects";
 
 const profile = await getProfile();
 const cards = await getCards();
@@ -12,6 +12,11 @@ const also = await getAlso();
 ---
 
 <Base>
+  <style
+    is:inline
+    slot="head"
+    set:html={transitionNames(cards.map(({ id }) => id))}
+  />
   <div class="flex flex-col gap-16">
     <Hero profile={profile} />
     <section
