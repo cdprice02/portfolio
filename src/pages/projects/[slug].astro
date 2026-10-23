@@ -105,12 +105,12 @@ const pills = [
       <p id="toc-label" class="font-mono text-sm font-medium text-muted">
         on this page
       </p>
-      <ol class="flex flex-col gap-1 font-mono text-[0.8125rem]">
+      <ol class="flex flex-col font-mono text-[0.8125rem]">
         {sections.map(({ slug, text }) => (
           <li>
             <a
               href={`#${slug}`}
-              class="text-muted no-underline before:whitespace-pre before:text-line before:content-['#__'] hover:text-accent"
+              class="inline-block py-1 text-muted no-underline before:whitespace-pre before:text-line before:content-['#__'] hover:text-accent"
             >
               {text}
             </a>
