@@ -61,9 +61,7 @@ graph TD
     hive --> index[(SQLite index)]
     indexer[nightly indexer] --> index
   end
-  subgraph gpu[GPU desktop]
-    ollama[Ollama]
-  end
+  ollama[Ollama on GPU desktop]
   client -->|Tailscale Funnel| oauth
   hive -->|search · Scout| ollama
   indexer -->|embeddings| ollama
