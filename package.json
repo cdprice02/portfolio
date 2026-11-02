@@ -17,6 +17,7 @@
     "format:check": "prettier --check .",
     "astro": "astro",
     "brand": "node scripts/brand/render.mjs",
+    "refresh:snapshot": "node scripts/refresh-snapshot.mjs",
     "serve": "wrangler dev --port 8788 --compatibility-date 2026-01-01",
     "check:csp": "node scripts/check-csp.mjs",
     "check:og": "node scripts/check-og.mjs",

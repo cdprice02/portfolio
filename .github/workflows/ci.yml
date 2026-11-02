@@ -11,6 +11,9 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      # Checks stay deterministic: no GitHub API calls during the build.
+      PROJECT_DATA: snapshot
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6

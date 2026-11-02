@@ -1,5 +1,7 @@
 import type { MarkdownHeading } from "astro";
 import { getCollection, render, type CollectionEntry } from "astro:content";
+import type { ProjectData } from "./github.ts";
+import { getProjectData } from "./project-data.ts";
 
 type Project = CollectionEntry<"projects">;
 
@@ -33,6 +35,7 @@ export function hasPage(project: Project): boolean {
 export interface ProjectPage {
   project: Project;
   updated: Date;
+  live: ProjectData;
   sections: MarkdownHeading[];
 }
 
@@ -71,7 +74,8 @@ export async function getPages(): Promise<ProjectPage[]> {
       problems.push(`${project.id}: has a body but no updated date`);
       continue;
     }
-    pages.push({ project, updated, sections });
+    const live = await getProjectData(project.id, repoLabel(project.data.repo));
+    pages.push({ project, updated, live, sections });
   }
   if (problems.length > 0) {
     throw new Error(`Invalid Project pages:\n${problems.join("\n")}`);

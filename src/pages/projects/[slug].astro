@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
 type Props = ProjectPage;
 
-const { project, updated, sections } = Astro.props;
+const { project, updated, live, sections } = Astro.props;
 const {
   title,
   tagline,
@@ -81,7 +81,12 @@ const jsonLd = {
       {title}
     </h1>
     <p class="text-lg font-medium text-accent">{tagline}</p>
-    <MetaLine status={status} updated={updated} />
+    <MetaLine
+      status={status}
+      updated={updated}
+      lastCommit={new Date(live.lastCommit)}
+      asOf={live.asOf}
+    />
   </header>
 
   <section class="mt-7 flex flex-col gap-6" aria-label="Overview">
@@ -152,5 +157,10 @@ const jsonLd = {
 
   <article class="prose mt-12">
     <Content />
+    {live.release && (
+      <p>
+        Latest release: <a href={live.release.url}>{live.release.tag}</a>
+      </p>
+    )}
   </article>
 </Base>

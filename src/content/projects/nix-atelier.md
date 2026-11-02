@@ -104,6 +104,5 @@ release (see below).
 
 ## Status and what's next
 
-nix-atelier is maintained, with 16 releases since June 2026; the latest is
-[v4.2.1](https://github.com/cdprice02/nix-atelier/releases). Planned work is
+nix-atelier is maintained, with 16 releases since June 2026. Planned work is
 tracked in GitHub milestones. Intel Mac support ends in v5.
