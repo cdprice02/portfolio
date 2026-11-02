@@ -18,6 +18,7 @@
     "astro": "astro",
     "brand": "node scripts/brand/render.mjs",
     "refresh:snapshot": "node scripts/refresh-snapshot.mjs",
+    "deploy:rebuild": "wrangler deploy -c workers/rebuild/wrangler.jsonc",
     "serve": "wrangler dev --port 8788 --compatibility-date 2026-01-01",
     "check:csp": "node scripts/check-csp.mjs",
     "check:og": "node scripts/check-og.mjs",

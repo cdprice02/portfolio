@@ -25,6 +25,24 @@ pnpm dev
 
 CI runs `format:check`, `lint`, `check`, and `build` on every pull request.
 
+## Daily rebuild
+
+Live Project data is fresh because a separate Cron Worker
+(`workers/rebuild/`) POSTs a Workers Builds deploy hook at 06:00 UTC each day
+([ADR 0002](docs/adr/0002-no-runtime-freshness-by-daily-rebuild.md)). One-time
+setup, by the owner:
+
+1. In the Cloudflare dashboard, open the `portfolio` Worker, Settings, Builds,
+   and create a deploy hook for the `main` branch.
+2. `pnpm exec wrangler secret put DEPLOY_HOOK_URL -c workers/rebuild/wrangler.jsonc`
+   and paste the hook URL; it is the credential, so it never enters the repo.
+3. `pnpm deploy:rebuild`.
+
+To test locally, put `DEPLOY_HOOK_URL=<a stub URL>` in
+`workers/rebuild/.dev.vars`, run
+`pnpm exec wrangler dev --test-scheduled -c workers/rebuild/wrangler.jsonc`,
+and request `/__scheduled`.
+
 ## Decisions
 
 - [`GLOSSARY.md`](GLOSSARY.md): the domain language used across the site and
