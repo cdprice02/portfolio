@@ -1,0 +1,18 @@
+{
+  "colony": {
+    "asOf": "2026-11-02",
+    "lastCommit": "2026-10-19T18:25:32Z"
+  },
+  "nix-atelier": {
+    "asOf": "2026-11-02",
+    "lastCommit": "2026-10-29T14:39:46Z",
+    "release": {
+      "tag": "v4.4.1",
+      "url": "https://github.com/cdprice02/nix-atelier/releases/tag/v4.4.1"
+    }
+  },
+  "turox": {
+    "asOf": "2026-11-02",
+    "lastCommit": "2026-10-07T15:37:32Z"
+  }
+}
