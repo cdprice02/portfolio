@@ -1,4 +1,4 @@
-import { defineCollection } from "astro:content";
+import { defineCollection, reference } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
@@ -33,6 +33,18 @@ const projects = defineCollection({
     }),
 });
 
+const changelog = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/changelog" }),
+  schema: z.object({
+    date: z.coerce.date(),
+    // Only Projects with a Project page may have entries; getChangelog checks.
+    project: reference("projects"),
+    title: z.string(),
+    // The release, PR, or commit that proves the change.
+    href: z.url().optional(),
+  }),
+});
+
 const profile = defineCollection({
   loader: file("src/data/profile.json"),
   schema: ({ image }) =>
@@ -51,4 +63,4 @@ const profile = defineCollection({
     }),
 });
 
-export const collections = { projects, profile };
+export const collections = { projects, changelog, profile };
