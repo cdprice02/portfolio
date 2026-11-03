@@ -7,7 +7,9 @@ const origin = "http://localhost:8788";
 const paths = [
   "/",
   "/404",
-  ...readdirSync("dist/projects").map((slug) => `/projects/${slug}/`),
+  ...readdirSync("dist/projects", { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => `/projects/${entry.name}/`),
 ];
 
 for (const config of ["lighthouserc.json", "lighthouserc.dark.json"]) {

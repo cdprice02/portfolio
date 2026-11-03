@@ -21,6 +21,7 @@ const {
     alt: `${profile.name}, ${profile.role}, cdprice.dev`,
   },
   jsonLd,
+  markdownAlternate,
 } = Astro.props;
 const year = new Date().getFullYear();
 const beaconToken = isProduction ? profile.analyticsToken : undefined;
@@ -41,6 +42,7 @@ if (isProduction && !beaconToken) {
       path={path}
       image={image}
       jsonLd={jsonLd}
+      markdownAlternate={markdownAlternate}
     />
     <script is:inline>
       {
@@ -92,6 +94,13 @@ if (isProduction && !beaconToken) {
             class="text-muted underline-offset-4 hover:text-accent hover:underline"
           >
             source
+          </a>
+          <span aria-hidden="true">·</span>
+          <a
+            href="/llms.txt"
+            class="text-muted underline-offset-4 hover:text-accent hover:underline"
+          >
+            llms.txt
           </a>
         </span>
       </div>

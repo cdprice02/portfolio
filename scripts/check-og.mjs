@@ -3,8 +3,12 @@ import { readdirSync, readFileSync } from "node:fs";
 // Each built Project page must have its committed Social preview at
 // public/og/<id>.png, 1200x630. It does not detect stale text: rerun
 // `pnpm brand` after changing a title or tagline.
+// Built Project pages are directories; the Markdown twins beside them are files.
+const slugs = readdirSync("dist/projects", { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name);
 const problems = [];
-for (const slug of readdirSync("dist/projects")) {
+for (const slug of slugs) {
   const file = `public/og/${slug}.png`;
   let png;
   try {

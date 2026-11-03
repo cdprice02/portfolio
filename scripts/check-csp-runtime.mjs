@@ -9,9 +9,9 @@ import { chromium } from "playwright";
 const port = 8788;
 const origin = `http://localhost:${port}`;
 // Every built Project page, so a new page is covered without editing this list.
-const projectPaths = readdirSync("dist/projects").map(
-  (slug) => `/projects/${slug}/`,
-);
+const projectPaths = readdirSync("dist/projects", { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => `/projects/${entry.name}/`);
 const paths = ["/", "/404", ...projectPaths];
 const nodeFills = new Map();
 const themes = ["light", "dark"];

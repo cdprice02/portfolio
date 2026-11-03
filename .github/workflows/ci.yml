@@ -32,7 +32,7 @@ jobs:
       - name: Check internal links
         uses: lycheeverse/lychee-action@v2.9.0
         with:
-          args: --offline --no-progress --root-dir ${{ github.workspace }}/dist 'dist/**/*.html'
+          args: --offline --no-progress --root-dir ${{ github.workspace }}/dist 'dist/**/*.html' 'dist/**/*.md' 'dist/llms*.txt'
           jobSummary: true
       - run: pnpm lighthouse
       - uses: actions/upload-artifact@v7

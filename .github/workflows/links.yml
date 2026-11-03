@@ -25,7 +25,7 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@v2.9.0
         with:
-          args: --no-progress --root-dir ${{ github.workspace }}/dist 'dist/**/*.html'
+          args: --no-progress --root-dir ${{ github.workspace }}/dist 'dist/**/*.html' 'dist/**/*.md' 'dist/llms*.txt'
           output: lychee/report.md
           fail: false
       - name: Find the open links issue

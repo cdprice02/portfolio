@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import { Icon } from "astro-icon/components";
+import { twinPath } from "../../lib/agent-files";
 import MetaLine from "../../components/MetaLine.astro";
 import Base from "../../layouts/Base.astro";
 import { getChangelog, type ChangelogEntry } from "../../lib/changelog";
@@ -76,6 +77,7 @@ const jsonLd = {
     alt: `${title}, ${tagline}, cdprice.dev`,
   }}
   jsonLd={jsonLd}
+  markdownAlternate={twinPath(project.id)}
 >
   <style is:inline slot="head" set:html={transitionNames([project.id])} />
 
