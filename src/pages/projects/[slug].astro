@@ -3,6 +3,7 @@ import { render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import MetaLine from "../../components/MetaLine.astro";
 import Base from "../../layouts/Base.astro";
+import { getChangelog, type ChangelogEntry } from "../../lib/changelog";
 import {
   getPages,
   isoDate,
@@ -11,16 +12,16 @@ import {
 } from "../../lib/projects";
 
 export async function getStaticPaths() {
-  const pages = await getPages();
+  const [pages, changelog] = await Promise.all([getPages(), getChangelog()]);
   return pages.map((page) => ({
     params: { slug: page.project.id },
-    props: page,
+    props: { ...page, entries: changelog.get(page.project.id) ?? [] },
   }));
 }
 
-type Props = ProjectPage;
+type Props = ProjectPage & { entries: ChangelogEntry[] };
 
-const { project, updated, live, sections } = Astro.props;
+const { project, updated, live, sections, entries } = Astro.props;
 const {
   title,
   tagline,
@@ -33,6 +34,18 @@ const {
   tags,
 } = project.data;
 const { Content } = await render(project);
+const changes = await Promise.all(
+  entries.map(async (entry) => ({
+    entry,
+    Body: (await render(entry)).Content,
+  })),
+);
+const toc = [
+  ...sections,
+  ...(changes.length > 0
+    ? [{ slug: "recent-changes", text: "Recent changes" }]
+    : []),
+];
 const sectionText = new Map(sections.map(({ slug, text }) => [slug, text]));
 const pills = [
   ...links.map((link) => ({ ...link, icon: "lucide:external-link" })),
@@ -141,7 +154,7 @@ const jsonLd = {
         on this page
       </p>
       <ol class="flex flex-col font-mono text-[0.8125rem]">
-        {sections.map(({ slug, text }) => (
+        {toc.map(({ slug, text }) => (
           <li>
             <a
               href={`#${slug}`}
@@ -161,6 +174,32 @@ const jsonLd = {
       <p>
         Latest release: <a href={live.release.url}>{live.release.tag}</a>
       </p>
+    )}
+    {changes.length > 0 && (
+      <>
+        <h2 id="recent-changes">Recent changes</h2>
+        <ol class="flex flex-col gap-6">
+          {changes.map(({ entry, Body }) => (
+            <li class="flex flex-col gap-1">
+              <p class="font-mono text-xs text-muted">
+                <time datetime={isoDate(entry.data.date)}>
+                  {isoDate(entry.data.date)}
+                </time>
+              </p>
+              <p class="font-medium">
+                {entry.data.href ? (
+                  <a href={entry.data.href}>{entry.data.title}</a>
+                ) : (
+                  entry.data.title
+                )}
+              </p>
+              <div class="prose">
+                <Body />
+              </div>
+            </li>
+          ))}
+        </ol>
+      </>
     )}
   </article>
 </Base>
