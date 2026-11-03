@@ -12,7 +12,9 @@ const origin = `http://localhost:${port}`;
 const projectPaths = readdirSync("dist/projects", { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => `/projects/${entry.name}/`);
-const paths = ["/", "/404", ...projectPaths];
+// An unknown path is served the 404 page, which writes the requested path.
+const missingPath = "/no/such/page";
+const paths = ["/", "/404", missingPath, ...projectPaths];
 const nodeFills = new Map();
 const themes = ["light", "dark"];
 
@@ -69,7 +71,10 @@ try {
         });
       });
       page.on("console", (message) => {
-        if (message.type() === "error") {
+        // The missing path is served with a real 404 status, by design.
+        const expected404 =
+          path === missingPath && /status of 404/.test(message.text());
+        if (message.type() === "error" && !expected404) {
           problems.push(`${label}: console error: ${message.text()}`);
         }
       });
@@ -109,6 +114,17 @@ try {
         .catch(() => {
           problems.push(`${label}: back-to-top script did not run`);
         });
+      if (path === missingPath) {
+        const shell = await page.locator("main p.font-mono").innerText();
+        for (const line of [
+          `cd ${missingPath}`,
+          `cd: no such file or directory: ${missingPath}`,
+        ]) {
+          if (!shell.includes(line)) {
+            problems.push(`${label}: 404 shell lacks "${line}"`);
+          }
+        }
+      }
       if (projectPaths.includes(path)) {
         // The renderer's own colours are stripped, so an unstyled node would
         // fall back to the SVG default (black) and pass every other check.

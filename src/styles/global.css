@@ -23,6 +23,17 @@
     --line: #dde2ea;
     --accent: #3b497a;
     --accent-soft: #e7eaf4;
+    --tok-kw: #3b497a;
+    --tok-fn: #2d6a8a;
+    --tok-type: #6b4f9a;
+    --tok-str: #4d7358;
+    --tok-num: #9a5b3a;
+    --tok-com: #5a6273;
+    --grid-gap: 20px;
+    --grid-dot: 1.5px;
+    --grid-strength: 9%;
+    --grid-solid: 200px;
+    --grid-fade: 240px;
     color-scheme: light;
   }
 
@@ -36,6 +47,12 @@
       --line: #252c39;
       --accent: #a3b2e6;
       --accent-soft: #1c2338;
+      --tok-kw: #a3b2e6;
+      --tok-fn: #8cc4e0;
+      --tok-type: #c4a8e8;
+      --tok-str: #9cc7a4;
+      --tok-num: #e0a882;
+      --tok-com: #97a0b1;
       color-scheme: dark;
     }
   }
@@ -48,11 +65,19 @@
     --line: #252c39;
     --accent: #a3b2e6;
     --accent-soft: #1c2338;
+    --tok-kw: #a3b2e6;
+    --tok-fn: #8cc4e0;
+    --tok-type: #c4a8e8;
+    --tok-str: #9cc7a4;
+    --tok-num: #e0a882;
+    --tok-com: #97a0b1;
     color-scheme: dark;
   }
 
   body {
     @apply bg-bg font-sans text-fg;
+    position: relative;
+    isolation: isolate;
   }
 
   h1,
@@ -65,6 +90,45 @@
     outline: 2px solid var(--accent);
     outline-offset: 3px;
     border-radius: 4px;
+  }
+}
+
+/* Graph-paper dots from the top of the page, behind the header and hero. */
+.dot-grid {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  height: calc(var(--grid-solid) + var(--grid-fade));
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--fg) var(--grid-strength), transparent)
+      var(--grid-dot),
+    transparent calc(var(--grid-dot) + 0.6px)
+  );
+  background-size: var(--grid-gap) var(--grid-gap);
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0 var(--grid-solid),
+    transparent 100%
+  );
+}
+
+/* A static block cursor: it never blinks. */
+.cursor {
+  display: inline-block;
+  width: 1ch;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--accent);
+}
+
+@media (forced-colors: active) {
+  .cursor {
+    background: CanvasText;
   }
 }
 
@@ -115,6 +179,60 @@
 
   .prose strong {
     font-weight: 600;
+  }
+
+  /* Tokens follow data-theme; classes come from src/lib/shiki-classes.ts. */
+  .prose pre {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    background: var(--surface);
+    padding: 1rem 1.125rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--fg);
+    tab-size: 4;
+    font-variant-ligatures: none;
+  }
+
+  .prose .tok-keyword {
+    color: var(--tok-kw);
+    font-weight: 500;
+  }
+
+  .prose .tok-function {
+    color: var(--tok-fn);
+  }
+
+  .prose .tok-link {
+    color: var(--tok-type);
+  }
+
+  .prose .tok-constant {
+    color: var(--tok-num);
+  }
+
+  .prose .tok-string,
+  .prose .tok-string-expression {
+    color: var(--tok-str);
+  }
+
+  .prose .tok-comment {
+    color: var(--tok-com);
+    font-style: italic;
+  }
+
+  .prose .tok-punctuation {
+    color: var(--muted);
+  }
+
+  .prose pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    color: inherit;
   }
 
   .prose code {

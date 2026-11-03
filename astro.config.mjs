@@ -7,6 +7,7 @@ import icon from "astro-icon";
 import sitemap from "@astrojs/sitemap";
 import { isProduction } from "./src/lib/build.ts";
 import { diagram } from "./src/lib/diagram.ts";
+import { tokenClasses } from "./src/lib/shiki-classes.ts";
 import cspHeaders from "./scripts/csp-headers.mjs";
 
 export default defineConfig({
@@ -36,6 +37,7 @@ export default defineConfig({
     },
   },
   markdown: {
+    shikiConfig: { theme: "css-variables", transformers: [tokenClasses] },
     processor: satteri({ mdastPlugins: [diagram] }),
   },
   integrations: [react(), icon(), sitemap(), cspHeaders()],
