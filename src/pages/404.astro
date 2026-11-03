@@ -3,11 +3,36 @@ import Base from "../layouts/Base.astro";
 ---
 
 <Base title="Page not found · cdprice.dev" path={null}>
-  <h1 class="text-2xl font-semibold">Page not found</h1>
-  <p class="mt-3 text-muted">Nothing lives at this address.</p>
-  <p class="mt-6">
-    <a href="/" class="text-accent underline underline-offset-4">
-      Back to cdprice.dev
-    </a>
-  </p>
+  <div class="flex flex-col gap-6">
+    <h1 class="text-2xl font-semibold">Page not found</h1>
+    <p class="flex flex-col font-mono text-[0.9375rem] leading-[1.8]">
+      <span>
+        <span class="text-accent select-none" aria-hidden="true">
+          ${" "}
+        </span>
+        cd<span id="path"></span>
+      </span>
+      <span class="text-muted [overflow-wrap:anywhere]">
+        cd: no such file or directory<span id="path-err"></span>
+      </span>
+    </p>
+    <p>
+      <a href="/" class="text-accent underline underline-offset-4">
+        Back to cdprice.dev
+      </a>
+    </p>
+  </div>
+  <script is:inline>
+    {
+      // textContent only: the path is reader-controlled input.
+      let path = location.pathname;
+      try {
+        path = decodeURIComponent(path);
+      } catch {
+        // A malformed escape is shown as typed.
+      }
+      document.getElementById("path").textContent = " " + path;
+      document.getElementById("path-err").textContent = ": " + path;
+    }
+  </script>
 </Base>

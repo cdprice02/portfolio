@@ -68,10 +68,12 @@ if (isProduction && !beaconToken) {
     <slot name="head" />
   </head>
   <body class="flex min-h-screen flex-col">
+    <div class="dot-grid" aria-hidden="true"></div>
     <header class="gutter">
       <div class="mx-auto flex max-w-[720px] items-center justify-between py-5">
         <a href="/" class="font-mono text-sm font-medium text-fg no-underline">
           cdprice<span class="text-accent">.dev</span>
+          <i class="cursor" aria-hidden="true"></i>
         </a>
         <ThemeToggle client:load />
       </div>
