@@ -11,9 +11,18 @@ export interface Props {
   image: { src: string; width: number; height: number; alt: string };
   /** Structured data for pages other than the Landing page. */
   jsonLd?: Record<string, unknown>;
+  /** Path of this page's Markdown twin, or of `llms.txt` on the Landing page. */
+  markdownAlternate?: string;
 }
 
-const { title, description, path, image, jsonLd: pageJsonLd } = Astro.props;
+const {
+  title,
+  description,
+  path,
+  image,
+  jsonLd: pageJsonLd,
+  markdownAlternate,
+} = Astro.props;
 const site = Astro.site!;
 const profile = await getProfile();
 const canonical = path === null ? null : new URL(path, site).href;
@@ -44,6 +53,13 @@ const landingJsonLd = {
 <title>{title}</title>
 <meta name="description" content={description} />
 {canonical && <link rel="canonical" href={canonical} />}
+{markdownAlternate && (
+  <link
+    rel="alternate"
+    type="text/markdown"
+    href={new URL(markdownAlternate, site).href}
+  />
+)}
 {isPreview && <meta name="robots" content="noindex" />}
 
 <meta property="og:title" content={title} />
