@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "portfolio-rebuild",
+  "main": "src/index.ts",
+  // Older than the site Worker so the pinned local workerd can run it; nothing here needs newer behaviour.
+  "compatibility_date": "2026-01-01",
+  // 06:00 UTC daily; the site rebuilds to refresh live Project data.
+  "triggers": { "crons": ["0 6 * * *"] },
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": true },
+}
