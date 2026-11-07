@@ -7,6 +7,8 @@ import icon from "astro-icon";
 import sitemap from "@astrojs/sitemap";
 import { isProduction } from "./src/lib/build.ts";
 import { diagram } from "./src/lib/diagram.ts";
+import { tableAlign } from "./src/lib/table-align.ts";
+import { taskLabels } from "./src/lib/task-labels.ts";
 import { tokenClasses } from "./src/lib/shiki-classes.ts";
 import cspHeaders from "./scripts/csp-headers.mjs";
 
@@ -38,9 +40,17 @@ export default defineConfig({
   },
   markdown: {
     shikiConfig: { theme: "css-variables", transformers: [tokenClasses] },
-    processor: satteri({ mdastPlugins: [diagram] }),
+    processor: satteri({
+      mdastPlugins: [diagram],
+      hastPlugins: [tableAlign, taskLabels],
+    }),
   },
-  integrations: [react(), icon(), sitemap(), cspHeaders()],
+  integrations: [
+    react(),
+    icon(),
+    sitemap({ filter: (page) => !page.endsWith("/style-sample/") }),
+    cspHeaders(),
+  ],
   fonts: [
     {
       provider: fontProviders.fontsource(),

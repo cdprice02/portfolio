@@ -1,0 +1,113 @@
+---
+import { Content } from "../content/style-sample.md";
+import AlsoLine from "../components/AlsoLine.astro";
+import Hero from "../components/Hero.astro";
+import MetaLine from "../components/MetaLine.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Status from "../components/Status.astro";
+import Base from "../layouts/Base.astro";
+import { isProduction } from "../lib/build";
+import { getProfile } from "../lib/profile";
+import {
+  metaDates,
+  profiles,
+  statuses,
+  withPage,
+  withoutPage,
+} from "../lib/style-sample-fixtures";
+
+// The Style sample is built everywhere except production (see GLOSSARY.md).
+export function getStaticPaths() {
+  return isProduction ? [] : [{ params: { sample: "style-sample" } }];
+}
+
+const profile = await getProfile();
+const { withoutDog, bare } = profiles(profile);
+const label = "font-mono text-sm font-medium text-muted";
+---
+
+<Base
+  title="Style sample · cdprice.dev"
+  description="Every component and kind of content the site can display, for audits."
+  path="/style-sample/"
+>
+  <div class="flex flex-col gap-16">
+    <header class="flex flex-col gap-2">
+      <h1 class="text-4xl font-bold tracking-tight">Style sample</h1>
+      <p class="text-muted">
+        Every component and kind of content, in each state. Not linked from
+        anywhere.
+      </p>
+    </header>
+
+    <section class="flex flex-col gap-5" aria-labelledby="s-chrome">
+      <h2 id="s-chrome" class={label}>
+        chrome
+      </h2>
+      <p>
+        The layout's dot grid, wordmark cursor, theme toggle, footer, and
+        back-to-top link are on this page already.
+      </p>
+    </section>
+
+    <section class="flex flex-col gap-5" aria-labelledby="s-status">
+      <h2 id="s-status" class={label}>
+        Status
+      </h2>
+      <ul class="flex flex-col gap-2">
+        {statuses.map((status) => (
+          <li>
+            <Status status={status} />
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="flex flex-col gap-5" aria-labelledby="s-meta">
+      <h2 id="s-meta" class={label}>
+        MetaLine
+      </h2>
+      <MetaLine status="active" {...metaDates} />
+    </section>
+
+    <section class="flex flex-col gap-5" aria-labelledby="s-card">
+      <h2 id="s-card" class={label}>
+        ProjectCard
+      </h2>
+      <ul class="flex flex-col gap-4">
+        <li>
+          <ProjectCard project={withPage} />
+        </li>
+        <li>
+          <ProjectCard project={withoutPage} />
+        </li>
+      </ul>
+    </section>
+
+    <section class="flex flex-col gap-5" aria-labelledby="s-also">
+      <h2 id="s-also" class={label}>
+        AlsoLine
+      </h2>
+      <AlsoLine projects={[withPage, withoutPage]} />
+      <AlsoLine projects={[]} />
+    </section>
+
+    <section class="flex flex-col gap-5" aria-labelledby="s-hero">
+      <h2 id="s-hero" class={label}>
+        Hero
+      </h2>
+      <Hero profile={profile} />
+      <Hero profile={withoutDog} />
+      <Hero profile={bare} />
+    </section>
+
+    <section class="flex flex-col gap-5" aria-labelledby="s-prose">
+      <h2 id="s-prose" class={label}>
+        markdown
+      </h2>
+      <article class="prose">
+        <Content />
+      </article>
+    </section>
+  </div>
+</Base>

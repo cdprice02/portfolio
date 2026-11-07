@@ -15,6 +15,14 @@ export const tokenClasses: ShikiTransformer = {
   name: "token-classes",
   pre(node) {
     delete node.properties.style;
+    // Astro's own line hook wraps a diff line's +/- marker in a span with an
+    // inline style after the span hook has run, so strip it here.
+    const strip = (child: (typeof node.children)[number]) => {
+      if (child.type !== "element") return;
+      delete child.properties.style;
+      child.children.forEach(strip);
+    };
+    node.children.forEach(strip);
   },
   span(node) {
     const style = node.properties.style;

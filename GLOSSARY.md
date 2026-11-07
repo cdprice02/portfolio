@@ -85,6 +85,12 @@ _Avoid_: OG card, link preview, meta
 A build of an unmerged branch at its own address, hidden from search engines.
 _Avoid_: Staging, preview deployment
 
+**Style sample**:
+A page that shows every component and every kind of content the site can
+display, in each of its states, so audits cover features no real page uses yet;
+it exists only outside production and nothing links to it.
+_Avoid_: Style guide, kitchen sink, storybook
+
 **Outage**:
 A period during which the Landing page or the Public resume is not served
 correctly at cdprice.dev, from the first failed check to the first passing one.

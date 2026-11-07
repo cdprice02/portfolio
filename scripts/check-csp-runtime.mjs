@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { chromium } from "playwright";
 
 // Loads each page in both themes against the Worker that serves the real
@@ -14,7 +14,11 @@ const projectPaths = readdirSync("dist/projects", { withFileTypes: true })
   .map((entry) => `/projects/${entry.name}/`);
 // An unknown path is served the 404 page, which writes the requested path.
 const missingPath = "/no/such/page";
-const paths = ["/", "/404", missingPath, ...projectPaths];
+// The Style sample is built only outside production.
+const samplePaths = existsSync("dist/style-sample/index.html")
+  ? ["/style-sample/"]
+  : [];
+const paths = ["/", "/404", missingPath, ...projectPaths, ...samplePaths];
 const nodeFills = new Map();
 const themes = ["light", "dark"];
 
