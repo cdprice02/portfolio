@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import { Content } from "../content/style-sample.md";
 import AlsoLine from "../components/AlsoLine.astro";
 import Hero from "../components/Hero.astro";
@@ -8,12 +9,12 @@ import Status from "../components/Status.astro";
 import Base from "../layouts/Base.astro";
 import { isProduction } from "../lib/build";
 import { getProfile } from "../lib/profile";
+import { hasPage } from "../lib/projects";
 import {
   metaDates,
   profiles,
+  sampleProjects,
   statuses,
-  withPage,
-  withoutPage,
 } from "../lib/style-sample-fixtures";
 
 // The Style sample is built everywhere except production (see GLOSSARY.md).
@@ -22,6 +23,9 @@ export function getStaticPaths() {
 }
 
 const profile = await getProfile();
+const [real] = (await getCollection("projects")).filter(hasPage);
+if (!real) throw new Error("The Style sample needs a Project with a page");
+const { withPage, withoutPage } = sampleProjects(real.id);
 const { withoutDog, bare } = profiles(profile);
 const label = "font-mono text-sm font-medium text-muted";
 ---

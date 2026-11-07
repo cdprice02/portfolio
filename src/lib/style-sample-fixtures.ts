@@ -29,15 +29,20 @@ function project(id: string, body: string, data: Partial<Project["data"]>) {
   } satisfies Project;
 }
 
-/** A Project with a page: its card and Also entry link inside the site. */
-export const withPage = project("with-page", "Body text.", {});
-
-/** A Project without a page: its card and Also entry link to the repo. */
-export const withoutPage = project("without-page", "", {
-  status: "archived",
-  featured: "also",
-  tags: ["Python"],
-});
+/**
+ * A Project with a page and one without. The id of the first is a real built
+ * Project page, so the link checker still resolves the card's href.
+ */
+export function sampleProjects(pageId: string) {
+  return {
+    withPage: project(pageId, "Body text.", {}),
+    withoutPage: project("without-page", "", {
+      status: "archived",
+      featured: "also",
+      tags: ["Python"],
+    }),
+  };
+}
 
 /** The profile as shipped, plus the two optional fields removed. */
 export function profiles(full: Profile): {
