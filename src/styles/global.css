@@ -307,6 +307,14 @@
     vertical-align: top;
   }
 
+  .prose [data-align="center"] {
+    text-align: center;
+  }
+
+  .prose [data-align="right"] {
+    text-align: right;
+  }
+
   .prose th {
     font-family: var(--font-mono);
     font-size: 0.75rem;

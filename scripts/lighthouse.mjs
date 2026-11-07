@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 
 // The configs hold the assertions; the URLs come from here so every built
 // Project page is audited without editing a config.
@@ -10,6 +10,8 @@ const paths = [
   ...readdirSync("dist/projects", { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => `/projects/${entry.name}/`),
+  // Built only outside production, so audit it when it is there.
+  ...(existsSync("dist/style-sample/index.html") ? ["/style-sample/"] : []),
 ];
 
 for (const config of ["lighthouserc.json", "lighthouserc.dark.json"]) {
