@@ -23,5 +23,12 @@ export async function getProjectData(
   if (stored === undefined) {
     throw new Error(`No snapshot for ${id}; run pnpm refresh:snapshot`);
   }
+  // Entries written before `language` existed lack it; fail loudly rather than
+  // emit a Project page with no programmingLanguage.
+  if (typeof stored.language !== "string") {
+    throw new Error(
+      `Snapshot for ${id} lacks language; run pnpm refresh:snapshot`,
+    );
+  }
   return stored;
 }

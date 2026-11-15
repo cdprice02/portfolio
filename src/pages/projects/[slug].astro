@@ -46,7 +46,6 @@ const {
   figures = [],
   caveat,
   status,
-  tags,
 } = project.data;
 const { Content } = await render(project);
 const changes = await Promise.all(
@@ -74,7 +73,7 @@ const jsonLd = {
   name: title,
   description: summary,
   codeRepository: repo,
-  programmingLanguage: tags[0],
+  programmingLanguage: live.language,
   dateModified: isoDate(updated),
   author: { "@id": new URL("/#person", Astro.site!).href },
 };
