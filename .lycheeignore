@@ -1,2 +1,4 @@
 # LinkedIn answers automated requests with status 999.
 ^https://www\.linkedin\.com/
+# Lichess answers automated requests with status 403.
+^https://lichess\.org/@/turox-bot$
