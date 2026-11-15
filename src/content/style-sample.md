@@ -6,10 +6,6 @@ This paragraph holds **strong text**, _emphasis_, ~~strikethrough~~, `inline cod
 
 #### A fourth-level heading
 
-##### A fifth-level heading
-
-###### A sixth-level heading
-
 - An unordered item
 - Another item with `code` and a [link](https://example.com/)
   - A nested item
@@ -31,8 +27,6 @@ This paragraph holds **strong text**, _emphasis_, ~~strikethrough~~, `inline cod
 ![Rocky, a dog, standing in for any image in a page body](../assets/rocky.jpg)
 
 A paragraph with a footnote reference.[^1]
-
----
 
 [^1]: The footnote text.
 
