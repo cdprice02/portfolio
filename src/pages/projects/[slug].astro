@@ -20,6 +20,20 @@ export async function getStaticPaths() {
   }));
 }
 
+/**
+ * A Key figure value scales down to fit its card, since the card is narrow in
+ * the three-column grid. The divisor is the longest value in the bucket times
+ * a monospace advance of about 0.62em; the card's padding is the 2rem.
+ * Classes are spelled out so Tailwind sees them; style attributes are
+ * blocked by the CSP.
+ */
+function valueSize(value: string): string {
+  if (value.length <= 8) return "text-[min(1.75rem,calc((100cqw-2rem)/5))]";
+  if (value.length <= 11) return "text-[min(1.75rem,calc((100cqw-2rem)/6.9))]";
+  if (value.length <= 14) return "text-[min(1.75rem,calc((100cqw-2rem)/8.7))]";
+  return "text-[min(1.75rem,calc((100cqw-2rem)/11.2))]";
+}
+
 type Props = ProjectPage & { entries: ChangelogEntry[] };
 
 const { project, updated, live, sections, entries } = Astro.props;
@@ -110,12 +124,17 @@ const jsonLd = {
     {figures.length > 0 && (
       <ul class="grid gap-3 min-[521px]:grid-cols-3" aria-label="Key figures">
         {figures.map(({ value, label, section }) => (
-          <li>
+          <li class="@container">
             <a
               href={`#${section}`}
               class="group flex h-full flex-col gap-0.5 rounded-xl border border-line bg-surface px-4 py-3.5 text-fg no-underline hover:border-accent"
             >
-              <span class="font-mono text-[1.75rem] leading-[1.2] font-medium text-accent">
+              <span
+                class:list={[
+                  "font-mono leading-[1.2] font-medium text-accent",
+                  valueSize(value),
+                ]}
+              >
                 {value}
               </span>
               <span class="text-sm font-medium">{label}</span>
