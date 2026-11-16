@@ -8,8 +8,6 @@ name: Update visual baselines
 # re-run CI afterwards.
 on:
   workflow_dispatch:
-  push:
-    branches: [test/visual-regression]
 
 permissions:
   contents: write
