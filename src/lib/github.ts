@@ -3,6 +3,8 @@ export interface ProjectData {
   asOf: string;
   /** Commit date on the default branch, ISO timestamp. */
   lastCommit: string;
+  /** Language with the most bytes in the repo, as GitHub names it. */
+  language: string;
   release?: { tag: string; url: string };
 }
 
@@ -25,9 +27,17 @@ export async function fetchProjectData(repo: string): Promise<ProjectData> {
   }[];
   if (latest === undefined) throw new Error(`${repo}: no commits`);
 
+  const languages = await get(`/repos/${repo}/languages`);
+  if (!languages.ok) throw new Error(`${repo}: languages ${languages.status}`);
+  const [top] = Object.entries(
+    (await languages.json()) as Record<string, number>,
+  ).sort(([, a], [, b]) => b - a);
+  if (top === undefined) throw new Error(`${repo}: no languages`);
+
   const data: ProjectData = {
     asOf: new Date().toISOString().slice(0, 10),
     lastCommit: latest.commit.committer.date,
+    language: top[0],
   };
 
   const release = await get(`/repos/${repo}/releases/latest`);

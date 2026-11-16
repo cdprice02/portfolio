@@ -1,19 +1,23 @@
 {
   "cdprice-dev": {
     "asOf": "2026-11-15",
-    "lastCommit": "2026-11-15T02:54:58Z"
+    "lastCommit": "2026-11-15T03:37:39Z",
+    "language": "TypeScript"
   },
   "colony": {
     "asOf": "2026-11-15",
-    "lastCommit": "2026-10-19T18:25:32Z"
+    "lastCommit": "2026-10-19T18:25:32Z",
+    "language": "Python"
   },
   "lex": {
     "asOf": "2026-11-15",
-    "lastCommit": "2026-11-13T15:13:48Z"
+    "lastCommit": "2026-11-13T15:13:48Z",
+    "language": "Rust"
   },
   "nix-atelier": {
     "asOf": "2026-11-15",
     "lastCommit": "2026-10-29T14:39:46Z",
+    "language": "Nix",
     "release": {
       "tag": "v4.4.1",
       "url": "https://github.com/cdprice02/nix-atelier/releases/tag/v4.4.1"
@@ -21,6 +25,7 @@
   },
   "turox": {
     "asOf": "2026-11-15",
-    "lastCommit": "2026-10-07T15:37:32Z"
+    "lastCommit": "2026-10-07T15:37:32Z",
+    "language": "Rust"
   }
 }
