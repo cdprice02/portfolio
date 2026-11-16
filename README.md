@@ -25,6 +25,20 @@ pnpm dev
 
 CI runs `format:check`, `lint`, `check`, and `build` on every pull request.
 
+## Visual regression
+
+`pnpm test:visual` compares a full-page screenshot of every built page, at
+360, 768 and 1280px wide in light and dark, against the baselines in
+`e2e/visual/__screenshots__`. Build first (`PROJECT_DATA=snapshot pnpm build`).
+The baselines are rendered on `ubuntu-latest`, so the visual projects exist
+only on Linux and a Mac run of `pnpm test:e2e` skips them.
+
+After an intended visual change, or a Playwright or Chrome bump, run the
+"Update visual baselines" workflow on the branch (Actions tab, or
+`gh workflow run update-visual-baselines.yml --ref <branch>`). It commits the
+new PNGs to that branch; a push by `GITHUB_TOKEN` starts no CI run, so push an
+empty commit afterwards. Never commit baselines rendered on a Mac.
+
 ## Daily rebuild
 
 Live Project data is fresh because a separate Cron Worker
