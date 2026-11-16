@@ -1,0 +1,40 @@
+name: Update visual baselines
+
+# Run from the Actions tab (or `gh workflow run update-visual-baselines.yml
+# --ref <branch>`) after an intended visual change or a Playwright or Chrome
+# bump. It rewrites e2e/visual/__screenshots__ on ubuntu-latest, the only
+# place the baselines may be rendered, and pushes them to the selected branch.
+# A push made with GITHUB_TOKEN starts no CI run, so push an empty commit or
+# re-run CI afterwards.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_DATA: snapshot
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm test:visual --update-snapshots
+      - name: Commit baselines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add e2e/visual/__screenshots__
+          if git diff --cached --quiet; then
+            echo "Baselines already up to date."
+          else
+            git commit -m "test(visual): update baselines"
+            git push
+          fi
