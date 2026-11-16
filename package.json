@@ -23,7 +23,8 @@
     "check:csp": "node scripts/check-csp.mjs",
     "check:og": "node scripts/check-og.mjs",
     "check:csp:runtime": "node scripts/check-csp-runtime.mjs",
-    "lighthouse": "node scripts/lighthouse.mjs"
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.4",
@@ -45,6 +46,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "0.15.1",
+    "@playwright/test": "^1.64.1",
     "eslint": "^10.13.0",
     "eslint-plugin-astro": "^3.2.1",
     "eslint-plugin-jsx-a11y-x": "^0.2.0",

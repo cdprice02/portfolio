@@ -441,19 +441,25 @@
     .reveal,
     .prose > h2,
     .prose > .diagram {
-      animation: reveal linear both;
+      /*
+       * Rise only, no fade: a faded card is sampled mid-fade by the contrast
+       * audit. Longhands, not the shorthand: the minifier folds a trailing
+       * animation-timeline into it as "animation: ... view()", which Chrome
+       * rejects, so the reveal would silently never run.
+       */
+      animation-name: reveal;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: view();
       animation-range: entry 0% entry 50%;
     }
 
     @keyframes reveal {
       from {
-        opacity: 0;
         transform: translateY(8px);
       }
 
       to {
-        opacity: 1;
         transform: none;
       }
     }
