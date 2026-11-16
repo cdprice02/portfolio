@@ -30,6 +30,7 @@ jobs:
       - run: pnpm check:og
       - run: pnpm check:csp:runtime
       - run: pnpm test:e2e
+      - run: pnpm test:visual
       - name: Check internal links
         uses: lycheeverse/lychee-action@v2.9.0
         with:
