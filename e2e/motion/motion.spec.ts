@@ -37,12 +37,20 @@ for (const path of pagePaths) {
       await page.goto(path);
       const result = await page.evaluate((selector) => {
         const targets = [...document.querySelectorAll(selector)];
-        const animated = targets.filter((element) =>
-          element
-            .getAnimations()
-            .some((animation) => animation.timeline instanceof ViewTimeline),
+        const rises = targets.filter((element) =>
+          element.getAnimations().some((animation) => {
+            if (!(animation.timeline instanceof ViewTimeline)) return false;
+            const keyframes = (
+              animation.effect as KeyframeEffect
+            ).getKeyframes();
+            // The reveal is a rise only: a fade would be sampled mid-fade.
+            return (
+              keyframes.every((frame) => !("opacity" in frame)) &&
+              keyframes.some((frame) => "transform" in frame)
+            );
+          }),
         );
-        return { targets: targets.length, animated: animated.length };
+        return { targets: targets.length, animated: rises.length };
       }, revealSelector);
       if (path === "/" || path.startsWith("/projects/")) {
         expect(result.targets).toBeGreaterThan(0);
@@ -54,7 +62,14 @@ for (const path of pagePaths) {
       await page.goto(path);
       const hidden = await page.evaluate(async (selector) => {
         const failures: string[] = [];
-        for (const element of document.querySelectorAll(selector)) {
+        const elements = [...document.querySelectorAll(selector)];
+        // Below the fold, before any scroll, content must already be opaque.
+        for (const element of elements) {
+          if (getComputedStyle(element).opacity !== "1") {
+            failures.push(`unscrolled ${element.tagName}.${element.className}`);
+          }
+        }
+        for (const element of elements) {
           element.scrollIntoView({ block: "center", behavior: "instant" });
           await new Promise((resolve) => requestAnimationFrame(resolve));
           await new Promise((resolve) => requestAnimationFrame(resolve));

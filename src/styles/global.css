@@ -442,7 +442,8 @@
     .prose > h2,
     .prose > .diagram {
       /*
-       * Longhands, not the shorthand: the minifier folds a trailing
+       * Rise only, no fade: a faded card is sampled mid-fade by the contrast
+       * audit. Longhands, not the shorthand: the minifier folds a trailing
        * animation-timeline into it as "animation: ... view()", which Chrome
        * rejects, so the reveal would silently never run.
        */
@@ -455,12 +456,10 @@
 
     @keyframes reveal {
       from {
-        opacity: 0;
         transform: translateY(8px);
       }
 
       to {
-        opacity: 1;
         transform: none;
       }
     }
